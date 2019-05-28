@@ -13,7 +13,6 @@
 		537DBC20229D3AF100F874A7 /* Toi_ou_Moi.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 537DBC1E229D3AF100F874A7 /* Toi_ou_Moi.xcdatamodeld */; };
 		537DBC22229D3AF200F874A7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 537DBC21229D3AF200F874A7 /* Assets.xcassets */; };
 		537DBC25229D3AF200F874A7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 537DBC23229D3AF200F874A7 /* LaunchScreen.storyboard */; };
-		537DBC2D229D662D00F874A7 /* CoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 537DBC2C229D662C00F874A7 /* CoreData.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,7 +24,6 @@
 		537DBC21229D3AF200F874A7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		537DBC24229D3AF200F874A7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		537DBC26229D3AF200F874A7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		537DBC2C229D662C00F874A7 /* CoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreData.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,7 +58,6 @@
 			children = (
 				537DBC17229D3AF100F874A7 /* AppDelegate.swift */,
 				537DBC19229D3AF100F874A7 /* ViewController.swift */,
-				537DBC2C229D662C00F874A7 /* CoreData.swift */,
 				537DBC1B229D3AF100F874A7 /* Main.storyboard */,
 				537DBC21229D3AF200F874A7 /* Assets.xcassets */,
 				537DBC23229D3AF200F874A7 /* LaunchScreen.storyboard */,
@@ -141,7 +138,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				537DBC2D229D662D00F874A7 /* CoreData.swift in Sources */,
 				537DBC20229D3AF100F874A7 /* Toi_ou_Moi.xcdatamodeld in Sources */,
 				537DBC1A229D3AF100F874A7 /* ViewController.swift in Sources */,
 				537DBC18229D3AF100F874A7 /* AppDelegate.swift in Sources */,
