@@ -15,16 +15,9 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     @IBOutlet weak var maTableView: UITableView!
     
     var taches : [Tache] = []
+    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
     
-    var PrixText : String {
-        get {
-             return String(format: "%2.f", self)
-        }
-        set {
-           
-        }
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,48 +41,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         let tache = taches[indexPath.row]
         cell.textLabel?.text = ("\(tache.quand!)")
         return cell
-    }
-  
-    func litDonnées() {
-        let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Tache")
-        do {
-            taches = try context.fetch(request) as! [Tache]
-        } catch {
-            print("ERREUR DE CHARGEMENT !!")
-        }
-        
-        print("-- lecture des données --")
-        print(taches.count)
-        
-        // Si la base n'est pas vide
-        if taches.count > 0 {
-            for index in 0...taches.count - 1 {
-                let tache = taches[index]
-                print("\(tache.quand!)")
-            }
-        }
-    }
-    
-    func effaceDonnées() {
-        let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Tache")
-        let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest )
-        do {
-            print("-- Effacement de toutes les données --")
-            try context.execute(deleteRequest)
-        } catch {
-            print(error.localizedDescription)
-        }
-    }
-    
-    func creeDonnées() {
-        // Donne l'accès à AppDelegate
-        let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-        let tache = Tache(context: context)
-        print("-- Création des données --")
-        tache.quand = Date()
-        (UIApplication.shared.delegate as! AppDelegate).saveContext()
     }
     
 }
