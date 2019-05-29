@@ -30,7 +30,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     @IBAction func trashButton(_ sender: UIBarButtonItem) {
         
         
-        // cleanCoreData()
+        cleanCoreData()
         
         let alertController:UIAlertController = UIAlertController(title: "Supression des données !", message: "Voulez-vous vraiment supprimer toutes les données ?", preferredStyle: .alert)
         
@@ -91,51 +91,55 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
         maTableView.reloadData()
         
-        // miseAjourTotal()
+        miseAjourTotal()
     }
     
-//    func miseAjourTotal() {
-//        var nbToi:Int = 0
-//        var nbMoi:Int = 0
-//        var totalToi:Double = 0
-//        var totalMoi:Double = 0
-//        //var i:Int = 0
-//        //var j:Int = 0
-//
-//        do {
-//            let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-//            taches = try context.fetch(Tache.fetchRequest())
-//            if taches.count > 0 {
-//                for i in 0..<taches.count {
-//
-//                    if taches[i].nom == "Toi" {
-//                        totalToi += taches[i].prix
-//                        nbToi += 1
-//                    }
-//
-//                    if taches[i].nom == "Moi" {
-//                        totalMoi += taches[i].prix
-//                        nbMoi += 1
-//                    }
-//                }
-//            }
-//        } catch {
-//            print("Fetching Failed")
-//        }
-//
-//        let numberFormatter = NumberFormatter()
-//        //numberFormatter.numberStyle = .currency
-//
-//        // numberFormatter.numberStyle = .decimal
-//        numberFormatter.locale = Locale.current
-//        numberFormatter.locale = Locale(identifier: "fr_FR")
-//
-//
-//        nbToiLabel.text = "\(nbToi)"
-//        totToiLabel.text = NSString(format:"%.2f€", totalToi) as String
-//        nbMoiLabel.text = "\(nbMoi)"
-//        totMoiLabel.text = NSString(format:"%.2f€", totalMoi) as String
-//    }
+    func miseAjourTotal() {
+        var nbToi:Int = 0
+        var nbMoi:Int = 0
+        var totalToi:Double = 0
+        var totalMoi:Double = 0
+        //var i:Int = 0
+        //var j:Int = 0
+
+        do {
+            let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+            taches = try context.fetch(Tache.fetchRequest())
+            if taches.count > 0 {
+                for i in 0..<taches.count {
+
+                    if taches[i].qui == "Toi" {
+                        totalToi += taches[i].prix
+                        nbToi += 1
+                    }
+
+                    if taches[i].qui == "Moi" {
+                        totalMoi += taches[i].prix
+                        nbMoi += 1
+                    }
+                }
+            }
+        } catch {
+            print("Fetching Failed")
+        }
+
+        let numberFormatter = NumberFormatter()
+        //numberFormatter.numberStyle = .currency
+
+        // numberFormatter.numberStyle = .decimal
+        numberFormatter.locale = Locale.current
+        numberFormatter.locale = Locale(identifier: "fr_FR")
+
+
+        nbToiLabel.text = "\(nbToi)"
+        let totToi1 = NSString(format:"%.2f€", totalToi) as String
+        let totToi2 = totToi1.replacingOccurrences(of: ".", with: ",")
+        totToiLabel.text = totToi2
+        nbMoiLabel.text = "\(nbMoi)"
+        let totMoi1 = NSString(format:"%.2f€", totalMoi) as String
+        let totMoi2 = totMoi1.replacingOccurrences(of: ".", with: ",")
+        totMoiLabel.text = totMoi2
+    }
     
     
     
@@ -166,26 +170,26 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
     
     // Suppression d'une ligne
-//    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-//        let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-//        if editingStyle == .delete {
-//            let tache = taches[indexPath.row]
-//            context.delete(tache)
-//
-//
-//            (UIApplication.shared.delegate as! AppDelegate).saveContext()
-//
-//            do {
-//                taches = try context.fetch(Tache.fetchRequest())
-//            } catch {
-//                print("Fetching Failed")
-//            }
-//
-//            // miseAjourTotal()
-//            maTableView.reloadData()
-//        }
-//    }
-//
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+        if editingStyle == .delete {
+            let tache = taches[indexPath.row]
+            context.delete(tache)
+
+
+            (UIApplication.shared.delegate as! AppDelegate).saveContext()
+
+            do {
+                taches = try context.fetch(Tache.fetchRequest())
+            } catch {
+                print("Fetching Failed")
+            }
+
+            // miseAjourTotal()
+            maTableView.reloadData()
+        }
+    }
+
     // MARK - Gestion Setup
     
     ///delete all the data in core data

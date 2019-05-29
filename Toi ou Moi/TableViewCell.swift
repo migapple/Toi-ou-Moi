@@ -32,13 +32,9 @@ class TableViewCell: UITableViewCell {
         quiLabel.text = tache.qui
         dateLabel.text = dateFormatter.string(from: tache.quand!)
         quoiLabel.text = tache.quoi
-        let numberFormatter = NumberFormatter()
-        numberFormatter.decimalSeparator = ","
         let prix = NSString(format:"%.2f", tache.prix) as String
         let prix2 = prix.replacingOccurrences(of: ".", with: ",")
         prixLabel.text = NSString(format:"%.2f", tache.prix) as String
         prixLabel.text = prix2
-
     }
-    
 }
