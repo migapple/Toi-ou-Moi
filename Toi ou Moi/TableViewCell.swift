@@ -1,6 +1,6 @@
 //
 //  TableViewCell.swift
-//  test
+//  Toi ou Moi
 //
 //  Created by Michel Garlandat on 18/01/2017.
 //  Copyright © 2017 Michel Garlandat. All rights reserved.
@@ -22,8 +22,6 @@ class TableViewCell: UITableViewCell {
     
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-        
-        // Configure the view for the selected state
     }
     
     func affiche(tache: Tache)  {

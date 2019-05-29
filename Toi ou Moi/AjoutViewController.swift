@@ -1,6 +1,6 @@
 //
 //  AjoutViewController.swift
-//  test
+//  Toi ou Moi
 //
 //  Created by Michel Garlandat on 18/01/2017.
 //  Copyright © 2017 Michel Garlandat. All rights reserved.
@@ -58,12 +58,11 @@ class AjoutViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
         }
         
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd/MM/YYYY HH:mm"
-        let maDate:Date! = dateFormatter.date(from: dateLabelField.text!)
-        
+        dateFormatter.dateFormat = "dd/MM/yyyy HH:mm"
+        let maDate:Date = dateFormatter.date(from: dateLabelField.text!)!
         numberFormatter.locale = Locale(identifier: "fr_FR")
         let prixDouble = numberFormatter.number(from: prixTextField.text!) as! Double
-        sauvegarde(objet: nouvelleActivite, nom: qui, date: maDate!, quoi: quoiLabelField.text!, prix: prixDouble)
+        sauvegarde(objet: nouvelleActivite, nom: qui, date: maDate, quoi: quoiLabelField.text!, prix: prixDouble)
         self.dismiss(animated: true, completion: nil)
         
     }
@@ -117,6 +116,7 @@ class AjoutViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
         dateFormatter.dateFormat = "dd/MM/YYYY HH:mm"
         
         dateLabelField.text = dateFormatter.string(from: monDatePicker.date)
+        
     }
     
     func sauvegarde(objet:NSManagedObject, nom: String, date: Date, quoi: String, prix: Double) {

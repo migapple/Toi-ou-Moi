@@ -1,6 +1,6 @@
 //
 //  ViewController.swift
-//  Toi & Moi
+//  Toi ou Moi
 //  Utilisé sur l'iphone
 //  Created by Michel Garlandat on 18/05/2019.
 //  Copyright © 2017 Michel Garlandat. All rights reserved.
@@ -28,10 +28,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
     
     @IBAction func trashButton(_ sender: UIBarButtonItem) {
-        
-        
         cleanCoreData()
-        
         let alertController:UIAlertController = UIAlertController(title: "Supression des données !", message: "Voulez-vous vraiment supprimer toutes les données ?", preferredStyle: .alert)
         
         let cancelAction = UIAlertAction(title: "Non, annuler", style: .cancel) { action -> Void in
@@ -50,14 +47,13 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             
             self.maTableView.reloadData()
             
-            // self.miseAjourTotal()
+            self.miseAjourTotal()
         }
         
         alertController.addAction(cancelAction)
         alertController.addAction(nextAction)
         
         self.present(alertController, animated: true, completion: nil)
-        
     }
     
     
@@ -142,7 +138,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
     
     
-    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -185,7 +180,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                 print("Fetching Failed")
             }
 
-            // miseAjourTotal()
+            miseAjourTotal()
             maTableView.reloadData()
         }
     }
