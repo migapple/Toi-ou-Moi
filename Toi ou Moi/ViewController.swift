@@ -71,11 +71,34 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         NotificationCenter.default.addObserver(self, selector: #selector (ViewController.updateDisplayFromDefaults), name: UserDefaults.didChangeNotification, object: nil)
         
         // Core Data Récupération des données
-    
+         let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
         
-        let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+        // On fait la requette
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Tache")
+        
+        // On Calcule le debut du mois
+        // on contruit le début du mois
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd/MM/yyyy HH:mm"
+        let date = Date()
+        let calendar = Calendar.current
+        let components = calendar.dateComponents([.day, .month, .year], from: date)
+        let month = components.month
+        let year = components.year
+        
+        let debutDuMois = "01/\(month!)/\(year!) 00:00"
+        let laDate: Date
+        laDate = dateFormatter.date(from: debutDuMois)!
+    
+        // Requette depuis le début du mois
+        request.predicate = NSPredicate(format: "quand > %@", laDate as NSDate)
+        
+        // On trie par date
+        let sort = NSSortDescriptor(key: "quand", ascending: true)
+        request.sortDescriptors = [sort]
+        
         do {
-            taches = try context.fetch(Tache.fetchRequest())
+            taches = try context.fetch(request) as! [Tache]
             if taches.count > 0 {
                 for i in 0 ... taches.count-1 {
                     print("Lecture des données: \(taches[i].quand!) \(taches[i].qui!) \(taches[i].quoi!) \(taches[i].prix)")
