@@ -47,7 +47,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             
             self.maTableView.reloadData()
             
-            self.miseAjourTotal()
+            self.miseAjourTotal(taches: self.taches)
         }
         
         alertController.addAction(cancelAction)
@@ -55,7 +55,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
         self.present(alertController, animated: true, completion: nil)
     }
-    
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -76,23 +75,9 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         // On fait la requette
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Tache")
         
-        // On Calcule le debut du mois
-        // on contruit le début du mois
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd/MM/yyyy HH:mm"
-        let date = Date()
-        let calendar = Calendar.current
-        let components = calendar.dateComponents([.day, .month, .year], from: date)
-        let month = components.month
-        let year = components.year
-        
-        let debutDuMois = "01/\(month!)/\(year!) 00:00"
-        let laDate: Date
-        laDate = dateFormatter.date(from: debutDuMois)!
-    
         // Requette depuis le début du mois
-        request.predicate = NSPredicate(format: "quand > %@", laDate as NSDate)
-        
+        // request.predicate = NSPredicate(format: "quand > %@ && quand <= %@", dateDebutDeMois as NSDate, dateFinDeMois as NSDate)
+
         // On trie par date
         let sort = NSSortDescriptor(key: "quand", ascending: true)
         request.sortDescriptors = [sort]
@@ -100,8 +85,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         do {
             taches = try context.fetch(request) as! [Tache]
             if taches.count > 0 {
-                for i in 0 ... taches.count-1 {
-                    print("Lecture des données: \(taches[i].quand!) \(taches[i].qui!) \(taches[i].quoi!) \(taches[i].prix)")
+                for index in 0 ... taches.count-1 {
+                    print("Lecture des données: \(taches[index].quand!) \(taches[index].qui!) \(taches[index].quoi!) \(taches[index].prix)")
                 }
             }
         } catch {
@@ -110,40 +95,34 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
         maTableView.reloadData()
         
-        miseAjourTotal()
+        miseAjourTotal(taches: taches)
     }
     
-    func miseAjourTotal() {
+    func miseAjourTotal(taches: [Tache]) {
+        
         var nbToi:Int = 0
         var nbMoi:Int = 0
         var totalToi:Double = 0
         var totalMoi:Double = 0
- 
-        do {
-            let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-            taches = try context.fetch(Tache.fetchRequest())
-            if taches.count > 0 {
-                for i in 0..<taches.count {
-
-                    if taches[i].qui == "Toi" {
-                        totalToi += taches[i].prix
-                        nbToi += 1
-                    }
-
-                    if taches[i].qui == "Moi" {
-                        totalMoi += taches[i].prix
-                        nbMoi += 1
-                    }
+        
+        if taches.count > 0 {
+            for index in 0 ... taches.count-1 {
+                let tache = taches[index]
+                if tache.qui == "Toi" {
+                    nbToi += 1
+                    totalToi += tache.prix
+                }
+                
+                if tache.qui == "Moi" {
+                    nbMoi += 1
+                    totalMoi += tache.prix
                 }
             }
-        } catch {
-            print("Fetching Failed")
         }
-
+        
         let numberFormatter = NumberFormatter()
         numberFormatter.locale = Locale.current
         numberFormatter.locale = Locale(identifier: "fr_FR")
-
 
         nbToiLabel.text = "\(nbToi)"
         let totToi1 = NSString(format:"%.2f€", totalToi) as String
@@ -155,15 +134,12 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         totMoiLabel.text = totMoi2
     }
     
-    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
-    
     // MARK - Gestion de la TableView
-    
     func numberOfSections(in tableView: UITableView) -> Int {
         
         return 1
@@ -198,7 +174,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                 print("Fetching Failed")
             }
 
-            miseAjourTotal()
+            miseAjourTotal(taches: taches)
+            
             maTableView.reloadData()
         }
     }
@@ -232,78 +209,57 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     @objc func updateDisplayFromDefaults(){
         
+        // Get the defaults
+        let defaults = UserDefaults.standard
         
-        //Get the defaults
-        // let defaults = UserDefaults.standard
+        // Set the controls to the default values.
         
-        //Set the controls to the default values.
-        
-//        if let activiteSetup = defaults.string(forKey: "activite_0") {
-//            activite[0]  = activiteSetup
-//        } else {
-//            activite[0]  = ""
-//        }
-//
-//        if let activiteSetup = defaults.string(forKey: "activite_1") {
-//            activite[1]  = activiteSetup
-//        } else {
-//            activite[1]  = ""
-//        }
-//
-//        if let activiteSetup = defaults.string(forKey: "activite_2") {
-//            activite[2]  = activiteSetup
-//        } else {
-//            activite[2]  = ""
-//        }
-//
-//        if let activiteSetup = defaults.string(forKey: "activite_3") {
-//            activite[3]  = activiteSetup
-//        } else {
-//            activite[3]  = ""
-//        }
-//
-//        if let activiteSetup = defaults.string(forKey: "activite_4") {
-//            activite[4]  = activiteSetup
-//        } else {
-//            activite[4]  = ""
-//        }
-//
-//        if let activiteSetup = defaults.string(forKey: "activite_5") {
-//            activite[5]  = activiteSetup
-//        } else {
-//            activite[5]  = ""
-//        }
-//
-//        if let activiteSetup = defaults.string(forKey: "activite_6") {
-//            activite[6]  = activiteSetup
-//        } else {
-//            activite[6]  = ""
-//        }
-//
-//        if let activiteSetup = defaults.string(forKey: "activite_7") {
-//            activite[7]  = activiteSetup
-//        } else {
-//            activite[7]  = ""
-//        }
-//
-//        if let activiteSetup = defaults.string(forKey: "activite_8") {
-//            activite[8]  = activiteSetup
-//        } else {
-//            activite[8]  = ""
-//        }
-//
-//        if let activiteSetup = defaults.string(forKey: "activite_9") {
-//            activite[9]  = activiteSetup
-//        } else {
-//            activite[9]  = ""
-//        }
-        
+        for index in 0...9 {
+            let lactivite = "activite\(index)"
+            if let activiteSetup = defaults.string(forKey: lactivite) {
+                activite[index]  = activiteSetup
+            } else {
+                activite[index]  = ""
+            }
+        }
     }
     
     func defaultsChanged(){
         updateDisplayFromDefaults()
     }
     
+    func startOfMonth() -> Date {
+        let date = Date()
+        let calendar = Calendar.current
+        let currentDateComponents = calendar.dateComponents([.year, .month], from: date)
+        let startOfMonth = calendar.date(from: currentDateComponents)!
+        
+        return startOfMonth
+    }
     
+    func dateByAddingMonths(_ monthsToAdd: Int) -> Date {
+        let date = Date()
+        let calendar = Calendar.current
+        var months = DateComponents()
+        months.month = monthsToAdd
+        
+        return calendar.date(byAdding: months, to: date)!
+    }
+    
+    func endOfMonth() -> Date {
+        
+        // guard let plusOneMonthDate = dateByAddingMonths(1) else { return nil }
+        
+        let plusOneMonthDate = dateByAddingMonths(1)
+        let calendar = Calendar.current
+        let plusOneMonthDateComponents = calendar.dateComponents([.year, .month], from: plusOneMonthDate)
+        let endOfMonth = calendar.date(from: plusOneMonthDateComponents)?.addingTimeInterval(-1)
+        
+        return endOfMonth!
+        
+    }
 }
+
+
+
 
