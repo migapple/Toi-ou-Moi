@@ -118,9 +118,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         var nbMoi:Int = 0
         var totalToi:Double = 0
         var totalMoi:Double = 0
-        //var i:Int = 0
-        //var j:Int = 0
-
+ 
         do {
             let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
             taches = try context.fetch(Tache.fetchRequest())
@@ -143,9 +141,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         }
 
         let numberFormatter = NumberFormatter()
-        //numberFormatter.numberStyle = .currency
-
-        // numberFormatter.numberStyle = .decimal
         numberFormatter.locale = Locale.current
         numberFormatter.locale = Locale(identifier: "fr_FR")
 

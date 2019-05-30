@@ -26,7 +26,8 @@ class TableViewCell: UITableViewCell {
     
     func affiche(tache: Tache)  {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd/MM/yyyy HH:mm"
+        dateFormatter.locale = NSLocale(localeIdentifier: "fr_FR") as Locale
+        dateFormatter.dateFormat = "EEE dd/MM/yyyy HH:mm"
         quiLabel.text = tache.qui
         dateLabel.text = dateFormatter.string(from: tache.quand!)
         quoiLabel.text = tache.quoi
