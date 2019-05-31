@@ -10,7 +10,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Mois deJanvier-->
         <scene sceneID="0uA-XR-x25">
             <objects>
                 <viewController id="wnd-fY-IpK" customClass="ViewController" customModule="Toi_ou_Moi" customModuleProvider="target" sceneMemberID="viewController">
@@ -140,7 +140,7 @@
                         <viewLayoutGuide key="safeArea" id="lfa-Ce-eYV"/>
                     </view>
                     <toolbarItems/>
-                    <navigationItem key="navigationItem" id="xCQ-ey-IcF">
+                    <navigationItem key="navigationItem" title="Mois deJanvier" id="xCQ-ey-IcF">
                         <leftBarButtonItems>
                             <barButtonItem systemItem="compose" id="7Uh-vn-zw4"/>
                             <barButtonItem systemItem="trash" id="INR-ru-Lfi">
@@ -149,17 +149,29 @@
                                 </connections>
                             </barButtonItem>
                         </leftBarButtonItems>
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="XD3-uS-tpa">
-                            <connections>
-                                <segue destination="KOn-s3-WlD" kind="presentation" identifier="AddEvtSegue" id="0Sd-BV-9dL"/>
-                            </connections>
-                        </barButtonItem>
+                        <rightBarButtonItems>
+                            <barButtonItem systemItem="add" id="XD3-uS-tpa">
+                                <connections>
+                                    <segue destination="KOn-s3-WlD" kind="presentation" identifier="AddEvtSegue" id="0Sd-BV-9dL"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem style="plain" id="ukU-2h-fFD">
+                                <stepper key="customView" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" maximumValue="100" id="EdL-gE-sJd">
+                                    <rect key="frame" x="229" y="7.6666666666666679" width="94" height="29.000000000000004"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <connections>
+                                        <action selector="PlusMoinsStepper:" destination="wnd-fY-IpK" eventType="valueChanged" id="yK0-IT-ANR"/>
+                                    </connections>
+                                </stepper>
+                            </barButtonItem>
+                        </rightBarButtonItems>
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="maTableView" destination="TAU-0C-KVJ" id="Fa3-RE-Hxb"/>
                         <outlet property="nbMoiLabel" destination="iI8-i5-JVl" id="bqG-bf-3Tm"/>
                         <outlet property="nbToiLabel" destination="xYO-IH-uYe" id="Oao-8b-BDq"/>
+                        <outlet property="titreViewController" destination="xCQ-ey-IcF" id="Ie0-lY-Zcg"/>
                         <outlet property="totMoiLabel" destination="Dah-Q5-rg9" id="DzK-jg-w1j"/>
                         <outlet property="totToiLabel" destination="HPI-bV-AJR" id="svS-zI-yu0"/>
                     </connections>

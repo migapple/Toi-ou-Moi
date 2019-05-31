@@ -14,6 +14,9 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     var taches : [Tache] = []
     
+    
+    
+    @IBOutlet weak var titreViewController: UINavigationItem!
     @IBOutlet weak var nbToiLabel: UILabel!
     @IBOutlet weak var totToiLabel: UILabel!
     @IBOutlet weak var nbMoiLabel: UILabel!
@@ -25,6 +28,17 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         super.viewDidLoad()
         
         // cleanCoreData()
+    }
+    
+    
+    
+    @IBAction func PlusMoinsStepper(_ sender: UIStepper) {
+        //var moisEncours : Int = 0
+        let moisEncours = Int(sender.value)
+        sender.maximumValue = 12
+        sender.minimumValue = -12
+        
+        recuperationDesDonnees(moisEncours: moisEncours)
     }
     
     @IBAction func trashButton(_ sender: UIBarButtonItem) {
@@ -69,45 +83,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         registerSettings()
         NotificationCenter.default.addObserver(self, selector: #selector (ViewController.updateDisplayFromDefaults), name: UserDefaults.didChangeNotification, object: nil)
         
-        // Core Data Récupération des données
-         let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-        
-        // On fait la requette
-        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Tache")
-        
-        
-        let calendar = Calendar.current
-   
-        
-        
-        let dateDebutDeMois = startOfMonth()
-        let dateFinDeMois = endOfMonth()
-        
-        let dateDebutMoisPrécédent = calendar.date(byAdding: .month, value: -1, to: dateDebutDeMois)!
-        let dateDefinMoisPrécédent = calendar.date(byAdding: .month, value: -1, to: dateFinDeMois)!
-        
-        // Requette depuis le début du mois
-        // request.predicate = NSPredicate(format: "quand > %@ && quand <= %@", dateDebutDeMois as NSDate, dateFinDeMois as NSDate)
-        request.predicate = NSPredicate(format: "quand > %@ && quand <= %@", dateDebutMoisPrécédent as NSDate, dateDefinMoisPrécédent as NSDate)
-
-        // On trie par date
-        let sort = NSSortDescriptor(key: "quand", ascending: true)
-        request.sortDescriptors = [sort]
-        
-        do {
-            taches = try context.fetch(request) as! [Tache]
-            if taches.count > 0 {
-                for index in 0 ... taches.count-1 {
-                    print("Lecture des données: \(taches[index].quand!) \(taches[index].qui!) \(taches[index].quoi!) \(taches[index].prix)")
-                }
-            }
-        } catch {
-            print("Fetching Failed")
-        }
-        
-        maTableView.reloadData()
-        
-        miseAjourTotal(taches: taches)
+        recuperationDesDonnees(moisEncours: 0)
     }
     
     func miseAjourTotal(taches: [Tache]) {
@@ -212,6 +188,51 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
     }
     
+    func recuperationDesDonnees(moisEncours: Int) {
+        // Core Data Récupération des données
+        let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+        
+        // On fait la requette
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Tache")
+        
+        
+        let calendar = Calendar.current
+        
+        let dateDebutDeMois = startOfMonth()
+        let dateFinDeMois = endOfMonth()
+        
+        
+        let dateDebutMoisPrécédent = calendar.date(byAdding: .month, value: moisEncours, to: dateDebutDeMois)!
+        let dateDefinMoisPrécédent = calendar.date(byAdding: .month, value: moisEncours, to: dateFinDeMois)!
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = NSLocale(localeIdentifier: "fr_FR") as Locale
+        dateFormatter.dateFormat = "MM/yyyy"
+        titreViewController.title = dateFormatter.string(from: dateDebutMoisPrécédent)
+        
+        // Requette depuis le début du mois
+        // request.predicate = NSPredicate(format: "quand > %@ && quand <= %@", dateDebutDeMois as NSDate, dateFinDeMois as NSDate)
+        request.predicate = NSPredicate(format: "quand > %@ && quand <= %@", dateDebutMoisPrécédent as NSDate, dateDefinMoisPrécédent as NSDate)
+        
+        // On trie par date
+        let sort = NSSortDescriptor(key: "quand", ascending: true)
+        request.sortDescriptors = [sort]
+        
+        do {
+            taches = try context.fetch(request) as! [Tache]
+            if taches.count > 0 {
+                for index in 0 ... taches.count-1 {
+                    print("Lecture des données: \(taches[index].quand!) \(taches[index].qui!) \(taches[index].quoi!) \(taches[index].prix)")
+                }
+            }
+        } catch {
+            print("Fetching Failed")
+        }
+        
+        maTableView.reloadData()
+        
+        miseAjourTotal(taches: taches)
+    }
     
     func registerSettingsBundle(){
         let appDefaults = [String:AnyObject]()
