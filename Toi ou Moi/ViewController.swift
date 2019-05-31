@@ -75,8 +75,20 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         // On fait la requette
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Tache")
         
+        
+        let calendar = Calendar.current
+   
+        
+        
+        let dateDebutDeMois = startOfMonth()
+        let dateFinDeMois = endOfMonth()
+        
+        let dateDebutMoisPrécédent = calendar.date(byAdding: .month, value: -1, to: dateDebutDeMois)!
+        let dateDefinMoisPrécédent = calendar.date(byAdding: .month, value: -1, to: dateFinDeMois)!
+        
         // Requette depuis le début du mois
         // request.predicate = NSPredicate(format: "quand > %@ && quand <= %@", dateDebutDeMois as NSDate, dateFinDeMois as NSDate)
+        request.predicate = NSPredicate(format: "quand > %@ && quand <= %@", dateDebutMoisPrécédent as NSDate, dateDefinMoisPrécédent as NSDate)
 
         // On trie par date
         let sort = NSSortDescriptor(key: "quand", ascending: true)
@@ -232,8 +244,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         let date = Date()
         let calendar = Calendar.current
         let currentDateComponents = calendar.dateComponents([.year, .month], from: date)
-        let startOfMonth = calendar.date(from: currentDateComponents)!
-        
+        let startOfMonth = calendar.date(from: currentDateComponents)!.addingTimeInterval(1)
         return startOfMonth
     }
     
@@ -242,21 +253,24 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         let calendar = Calendar.current
         var months = DateComponents()
         months.month = monthsToAdd
-        
         return calendar.date(byAdding: months, to: date)!
     }
     
+    func dateBySubtractMonths(_ monthsToAdd: Int) -> Date {
+        let date = Date()
+        let calendar = Calendar.current
+        var months = DateComponents()
+        months.month = monthsToAdd
+        return calendar.date(byAdding: .month, value: -1, to: date)!
+    }
+    
     func endOfMonth() -> Date {
-        
         // guard let plusOneMonthDate = dateByAddingMonths(1) else { return nil }
-        
         let plusOneMonthDate = dateByAddingMonths(1)
         let calendar = Calendar.current
         let plusOneMonthDateComponents = calendar.dateComponents([.year, .month], from: plusOneMonthDate)
         let endOfMonth = calendar.date(from: plusOneMonthDateComponents)?.addingTimeInterval(-1)
-        
         return endOfMonth!
-        
     }
 }
 
