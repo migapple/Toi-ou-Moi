@@ -30,6 +30,36 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         // cleanCoreData()
     }
     
+    @IBAction func ToutAfficherButton(_ sender: Any) {
+        
+        // Core Data Récupération des données
+        let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+        
+        // On fait la requette
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Tache")
+ 
+        titreViewController.title = "Tout"
+        
+        // On trie par date
+        let sort = NSSortDescriptor(key: "quand", ascending: true)
+        request.sortDescriptors = [sort]
+        
+        do {
+            taches = try context.fetch(request) as! [Tache]
+            if taches.count > 0 {
+                for index in 0 ... taches.count-1 {
+                    print("Lecture des données: \(taches[index].quand!) \(taches[index].qui!) \(taches[index].quoi!) \(taches[index].prix)")
+                }
+            }
+        } catch {
+            print("Fetching Failed")
+        }
+        
+        maTableView.reloadData()
+        
+        miseAjourTotal(taches: taches)
+        
+    }
     
     
     @IBAction func PlusMoinsStepper(_ sender: UIStepper) {
@@ -40,6 +70,9 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
         recuperationDesDonnees(moisEncours: moisEncours)
     }
+    
+    
+    
     
     @IBAction func trashButton(_ sender: UIBarButtonItem) {
         cleanCoreData()
@@ -201,19 +234,18 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         let dateDebutDeMois = startOfMonth()
         let dateFinDeMois = endOfMonth()
         
-        
         let dateDebutMoisPrécédent = calendar.date(byAdding: .month, value: moisEncours, to: dateDebutDeMois)!
         let dateDefinMoisPrécédent = calendar.date(byAdding: .month, value: moisEncours, to: dateFinDeMois)!
+        print("\(dateDebutMoisPrécédent)")
+        print("\(dateDefinMoisPrécédent)")
         
         let dateFormatter = DateFormatter()
         dateFormatter.locale = NSLocale(localeIdentifier: "fr_FR") as Locale
         dateFormatter.dateFormat = "MM/yyyy"
         titreViewController.title = dateFormatter.string(from: dateDebutMoisPrécédent)
         
-        // Requette depuis le début du mois
-        // request.predicate = NSPredicate(format: "quand > %@ && quand <= %@", dateDebutDeMois as NSDate, dateFinDeMois as NSDate)
-        request.predicate = NSPredicate(format: "quand > %@ && quand <= %@", dateDebutMoisPrécédent as NSDate, dateDefinMoisPrécédent as NSDate)
-        
+        request.predicate = NSPredicate(format: "quand >= %@ && quand <= %@", dateDebutMoisPrécédent as NSDate, dateDefinMoisPrécédent as NSDate)
+  
         // On trie par date
         let sort = NSSortDescriptor(key: "quand", ascending: true)
         request.sortDescriptors = [sort]
@@ -266,6 +298,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         let calendar = Calendar.current
         let currentDateComponents = calendar.dateComponents([.year, .month], from: date)
         let startOfMonth = calendar.date(from: currentDateComponents)!.addingTimeInterval(1)
+        //let startOfMonth = calendar.date(from: currentDateComponents)!.addingTimeInterval(60*60*24)
         return startOfMonth
     }
     
@@ -290,7 +323,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         let plusOneMonthDate = dateByAddingMonths(1)
         let calendar = Calendar.current
         let plusOneMonthDateComponents = calendar.dateComponents([.year, .month], from: plusOneMonthDate)
-        let endOfMonth = calendar.date(from: plusOneMonthDateComponents)?.addingTimeInterval(-1)
+        //let endOfMonth = calendar.date(from: plusOneMonthDateComponents)?.addingTimeInterval(-1)
+        let endOfMonth = calendar.date(from: plusOneMonthDateComponents)?.addingTimeInterval(0)
         return endOfMonth!
     }
 }

@@ -142,7 +142,11 @@
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="Mois deJanvier" id="xCQ-ey-IcF">
                         <leftBarButtonItems>
-                            <barButtonItem systemItem="compose" id="7Uh-vn-zw4"/>
+                            <barButtonItem systemItem="rewind" id="7Uh-vn-zw4">
+                                <connections>
+                                    <action selector="ToutAfficherButton:" destination="wnd-fY-IpK" id="AWb-9X-2cf"/>
+                                </connections>
+                            </barButtonItem>
                             <barButtonItem systemItem="trash" id="INR-ru-Lfi">
                                 <connections>
                                     <action selector="trashButton:" destination="wnd-fY-IpK" id="kFg-Mr-vEx"/>
@@ -155,7 +159,7 @@
                                     <segue destination="KOn-s3-WlD" kind="presentation" identifier="AddEvtSegue" id="0Sd-BV-9dL"/>
                                 </connections>
                             </barButtonItem>
-                            <barButtonItem style="plain" id="ukU-2h-fFD">
+                            <barButtonItem id="ukU-2h-fFD">
                                 <stepper key="customView" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" maximumValue="100" id="EdL-gE-sJd">
                                     <rect key="frame" x="229" y="7.6666666666666679" width="94" height="29.000000000000004"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
