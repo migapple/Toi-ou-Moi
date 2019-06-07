@@ -57,18 +57,43 @@ extension ViewController {
         
     }
     
-    func loadData() {
-        let delegate = UIApplication.shared.delegate as? AppDelegate
-        if let context = delegate?.persistentContainer.viewContext {
-            let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Tache")
-            fetchRequest.sortDescriptors = [NSSortDescriptor(key: "quand", ascending: true)]
-            do {
-                taches = try context.fetch(Tache.fetchRequest())
-            } catch let err {
-                print(err)
-            }
+    func loadData(moisEncours: Int) {
+        
+        let calendar = Calendar.current
+        
+        let dateDebutDeMois = startOfMonth()
+        let dateFinDeMois = endOfMonth()
+        
+        let dateDebutMoisPrécédent = calendar.date(byAdding: .month, value: moisEncours, to: dateDebutDeMois)!
+        let dateDefinMoisPrécédent = calendar.date(byAdding: .month, value: moisEncours, to: dateFinDeMois)!
+        print("\(dateDebutMoisPrécédent)")
+        print("\(dateDefinMoisPrécédent)")
+        
+        let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Tache")
+        
+        // On veut tout afficher
+        if moisEncours != 99 {
+            request.predicate = NSPredicate(format: "quand >= %@ && quand <= %@", dateDebutMoisPrécédent as NSDate, dateDefinMoisPrécédent as NSDate)
+        }
+        
+        // On trie par date
+        let sort = NSSortDescriptor(key: "quand", ascending: true)
+        request.sortDescriptors = [sort]
+        
+        do {
+            taches = try context.fetch(request) as! [Tache]
+//            if taches.count > 0 {
+//                for index in 0 ... taches.count-1 {
+//                    print("Lecture des données: \(taches[index].quand!) \(taches[index].qui!) \(taches[index].quoi!) \(taches[index].prix)")
+//                }
+//            }
+        } catch {
+            print("Fetching Failed")
         }
     }
+    
+    
     
     func addData() {
         let delegate = UIApplication.shared.delegate as? AppDelegate

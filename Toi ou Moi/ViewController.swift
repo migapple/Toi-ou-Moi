@@ -25,13 +25,13 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        loadData()
+        loadData(moisEncours: 0)
     }
     
     @IBAction func ToutAfficherButton(_ sender: Any) {
         
         
-        
+        loadData(moisEncours: 99)
         
 //        // Core Data Récupération des données
 //        let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
@@ -70,7 +70,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         sender.minimumValue = -12
         sender.value = 0
         
-        // recuperationDesDonnees(moisEncours: moisEncours)
+        loadData(moisEncours: moisEncours)
+        maTableView.reloadData()
     }
     
     
