@@ -25,7 +25,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // cleanCoreData()
+        loadData()
     }
     
     @IBAction func ToutAfficherButton(_ sender: Any) {
@@ -70,7 +70,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         sender.minimumValue = -12
         sender.value = 0
         
-        recuperationDesDonnees(moisEncours: moisEncours)
+        // recuperationDesDonnees(moisEncours: moisEncours)
     }
     
     
@@ -79,29 +79,29 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     @IBAction func trashButton(_ sender: UIBarButtonItem) {
 //        cleanCoreData()
 //        let alertController:UIAlertController = UIAlertController(title: "Supression des données !", message: "Voulez-vous vraiment supprimer toutes les données ?", preferredStyle: .alert)
-//        
+//
 //        let cancelAction = UIAlertAction(title: "Non, annuler", style: .cancel) { action -> Void in
 //            // don't do anything
 //        }
-//        
+//
 //        let nextAction = UIAlertAction(title: "Oui", style: .default) { action -> Void in
-//            
+//
 //            let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-//            
+//
 //            do {
 //                self.taches = try context.fetch(Tache.fetchRequest())
 //            } catch {
 //                print("Fetching Failed")
 //            }
-//            
+//
 //            self.maTableView.reloadData()
-//            
+//
 //            self.miseAjourTotal(taches: self.taches)
 //        }
-//        
+//
 //        alertController.addAction(cancelAction)
 //        alertController.addAction(nextAction)
-//        
+//
 //        self.present(alertController, animated: true, completion: nil)
     }
     
@@ -118,7 +118,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         registerSettings()
         NotificationCenter.default.addObserver(self, selector: #selector (ViewController.updateDisplayFromDefaults), name: UserDefaults.didChangeNotification, object: nil)
         
-        recuperationDesDonnees(moisEncours: 0)
+        // recuperationDesDonnees(moisEncours: 0)
     }
     
     func miseAjourTotal(taches: [Tache]) {
@@ -170,14 +170,19 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     // Calcule le nombre de lignes à afficher
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return taches.count
+        if let count = taches?.count {
+            return count
+        } else {
+            return 0
+        }
     }
     
     // affiche la cellule
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell:TableViewCell! = tableView.dequeueReusableCell(withIdentifier: "cell") as? TableViewCell
-        let tache = taches[indexPath.row]
-        cell.affiche(tache: tache)
+        if let tache = taches?[indexPath.row] {
+            cell.affiche(tache: tache)
+        }
         return cell
     }
     
@@ -185,21 +190,18 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
         if editingStyle == .delete {
-            let tache = taches[indexPath.row]
-            context.delete(tache)
-
-
-            (UIApplication.shared.delegate as! AppDelegate).saveContext()
-
-            do {
-                taches = try context.fetch(Tache.fetchRequest())
-            } catch {
-                print("Fetching Failed")
+            if let tache = taches?[indexPath.row] {
+                context.delete(tache)
+                (UIApplication.shared.delegate as! AppDelegate).saveContext()
+                
+                do {
+                    taches = try context.fetch(Tache.fetchRequest())
+                } catch {
+                    print("Fetching Failed")
+                }
+                 // miseAjourTotal(taches: taches)
+                maTableView.reloadData()
             }
-
-            miseAjourTotal(taches: taches)
-            
-            maTableView.reloadData()
         }
     }
 
@@ -223,50 +225,50 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
     }
     
-    func recuperationDesDonnees(moisEncours: Int) {
-        // Core Data Récupération des données
-        let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-        
-        // On fait la requette
-        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Tache")
-        
-        
-        let calendar = Calendar.current
-        
-        let dateDebutDeMois = startOfMonth()
-        let dateFinDeMois = endOfMonth()
-        
-        let dateDebutMoisPrécédent = calendar.date(byAdding: .month, value: moisEncours, to: dateDebutDeMois)!
-        let dateDefinMoisPrécédent = calendar.date(byAdding: .month, value: moisEncours, to: dateFinDeMois)!
-        print("\(dateDebutMoisPrécédent)")
-        print("\(dateDefinMoisPrécédent)")
-        
-        let dateFormatter = DateFormatter()
-        dateFormatter.locale = NSLocale(localeIdentifier: "fr_FR") as Locale
-        dateFormatter.dateFormat = "MM/yyyy"
-        titreViewController.title = dateFormatter.string(from: dateDebutMoisPrécédent)
-        
-        request.predicate = NSPredicate(format: "quand >= %@ && quand <= %@", dateDebutMoisPrécédent as NSDate, dateDefinMoisPrécédent as NSDate)
-  
-        // On trie par date
-        let sort = NSSortDescriptor(key: "quand", ascending: true)
-        request.sortDescriptors = [sort]
-        
-        do {
-            taches = try context.fetch(request) as! [Tache]
-            if taches.count > 0 {
-                for index in 0 ... taches.count-1 {
-                    print("Lecture des données: \(taches[index].quand!) \(taches[index].qui!) \(taches[index].quoi!) \(taches[index].prix)")
-                }
-            }
-        } catch {
-            print("Fetching Failed")
-        }
-        
-        maTableView.reloadData()
-        
-        miseAjourTotal(taches: taches)
-    }
+//    func recuperationDesDonnees(moisEncours: Int) {
+//        // Core Data Récupération des données
+//        let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+//
+//        // On fait la requette
+//        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Tache")
+//
+//
+//        let calendar = Calendar.current
+//
+//        let dateDebutDeMois = startOfMonth()
+//        let dateFinDeMois = endOfMonth()
+//
+//        let dateDebutMoisPrécédent = calendar.date(byAdding: .month, value: moisEncours, to: dateDebutDeMois)!
+//        let dateDefinMoisPrécédent = calendar.date(byAdding: .month, value: moisEncours, to: dateFinDeMois)!
+//        print("\(dateDebutMoisPrécédent)")
+//        print("\(dateDefinMoisPrécédent)")
+//
+//        let dateFormatter = DateFormatter()
+//        dateFormatter.locale = NSLocale(localeIdentifier: "fr_FR") as Locale
+//        dateFormatter.dateFormat = "MM/yyyy"
+//        titreViewController.title = dateFormatter.string(from: dateDebutMoisPrécédent)
+//
+//        request.predicate = NSPredicate(format: "quand >= %@ && quand <= %@", dateDebutMoisPrécédent as NSDate, dateDefinMoisPrécédent as NSDate)
+//
+//        // On trie par date
+//        let sort = NSSortDescriptor(key: "quand", ascending: true)
+//        request.sortDescriptors = [sort]
+//
+//        do {
+//            taches = try context.fetch(request) as! [Tache]
+//            if taches.count > 0 {
+//                for index in 0 ... taches.count-1 {
+//                    print("Lecture des données: \(taches[index].quand!) \(taches[index].qui!) \(taches[index].quoi!) \(taches[index].prix)")
+//                }
+//            }
+//        } catch {
+//            print("Fetching Failed")
+//        }
+//
+//        maTableView.reloadData()
+//
+//        miseAjourTotal(taches: taches)
+//    }
     
     func registerSettingsBundle(){
         let appDefaults = [String:AnyObject]()
