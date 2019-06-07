@@ -160,7 +160,7 @@
                                 </connections>
                             </barButtonItem>
                             <barButtonItem id="ukU-2h-fFD">
-                                <stepper key="customView" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" maximumValue="100" id="EdL-gE-sJd">
+                                <stepper key="customView" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" minimumValue="-12" maximumValue="12" id="EdL-gE-sJd">
                                     <rect key="frame" x="229" y="7.6666666666666679" width="94" height="29.000000000000004"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <connections>

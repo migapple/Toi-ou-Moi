@@ -15,6 +15,7 @@
 		537DBC2F229D7E2D00F874A7 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 537DBC2E229D7E2D00F874A7 /* ViewController.swift */; };
 		537DBC31229D7E7100F874A7 /* AjoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 537DBC30229D7E7100F874A7 /* AjoutViewController.swift */; };
 		537DBC33229D7EB500F874A7 /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 537DBC32229D7EB500F874A7 /* TableViewCell.swift */; };
+		5383B64422AA9ED100AAE2E2 /* CalculDates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5383B64322AA9ED100AAE2E2 /* CalculDates.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		537DBC2E229D7E2D00F874A7 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		537DBC30229D7E7100F874A7 /* AjoutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AjoutViewController.swift; sourceTree = "<group>"; };
 		537DBC32229D7EB500F874A7 /* TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
+		5383B64322AA9ED100AAE2E2 /* CalculDates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculDates.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,6 +63,7 @@
 			isa = PBXGroup;
 			children = (
 				537DBC2E229D7E2D00F874A7 /* ViewController.swift */,
+				5383B64322AA9ED100AAE2E2 /* CalculDates.swift */,
 				537DBC30229D7E7100F874A7 /* AjoutViewController.swift */,
 				537DBC32229D7EB500F874A7 /* TableViewCell.swift */,
 				537DBC17229D3AF100F874A7 /* AppDelegate.swift */,
@@ -145,6 +148,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				537DBC33229D7EB500F874A7 /* TableViewCell.swift in Sources */,
+				5383B64422AA9ED100AAE2E2 /* CalculDates.swift in Sources */,
 				537DBC2F229D7E2D00F874A7 /* ViewController.swift in Sources */,
 				537DBC20229D3AF100F874A7 /* Toi_ou_Moi.xcdatamodeld in Sources */,
 				537DBC31229D7E7100F874A7 /* AjoutViewController.swift in Sources */,

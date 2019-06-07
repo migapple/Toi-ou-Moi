@@ -67,6 +67,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         let moisEncours = Int(sender.value)
         sender.maximumValue = 12
         sender.minimumValue = -12
+        sender.value = 0
         
         recuperationDesDonnees(moisEncours: moisEncours)
     }
@@ -293,40 +294,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         updateDisplayFromDefaults()
     }
     
-    func startOfMonth() -> Date {
-        let date = Date()
-        let calendar = Calendar.current
-        let currentDateComponents = calendar.dateComponents([.year, .month], from: date)
-        let startOfMonth = calendar.date(from: currentDateComponents)!.addingTimeInterval(1)
-        //let startOfMonth = calendar.date(from: currentDateComponents)!.addingTimeInterval(60*60*24)
-        return startOfMonth
-    }
-    
-    func dateByAddingMonths(_ monthsToAdd: Int) -> Date {
-        let date = Date()
-        let calendar = Calendar.current
-        var months = DateComponents()
-        months.month = monthsToAdd
-        return calendar.date(byAdding: months, to: date)!
-    }
-    
-    func dateBySubtractMonths(_ monthsToAdd: Int) -> Date {
-        let date = Date()
-        let calendar = Calendar.current
-        var months = DateComponents()
-        months.month = monthsToAdd
-        return calendar.date(byAdding: .month, value: -1, to: date)!
-    }
-    
-    func endOfMonth() -> Date {
-        // guard let plusOneMonthDate = dateByAddingMonths(1) else { return nil }
-        let plusOneMonthDate = dateByAddingMonths(1)
-        let calendar = Calendar.current
-        let plusOneMonthDateComponents = calendar.dateComponents([.year, .month], from: plusOneMonthDate)
-        //let endOfMonth = calendar.date(from: plusOneMonthDateComponents)?.addingTimeInterval(-1)
-        let endOfMonth = calendar.date(from: plusOneMonthDateComponents)?.addingTimeInterval(0)
-        return endOfMonth!
-    }
+   
 }
 
 
