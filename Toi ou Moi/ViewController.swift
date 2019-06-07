@@ -27,6 +27,16 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
         // On charge le mois en cours
         loadData(moisEncours: 0)
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = NSLocale(localeIdentifier: "fr_FR") as Locale
+        dateFormatter.dateFormat = "MM/yyyy"
+        
+        let calendar = Calendar.current
+        let dateDebutDeMois = startOfMonth()
+        let dateDebutMoisPrécédent = calendar.date(byAdding: .month, value: 0, to: dateDebutDeMois)!
+        
+        titreViewController.title = dateFormatter.string(from: dateDebutMoisPrécédent)
     }
     
     @IBAction func ToutAfficherButton(_ sender: Any) {
@@ -45,7 +55,20 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         let moisEncours = Int(sender.value)
         sender.maximumValue = 12
         sender.minimumValue = -12
-        sender.value = 0
+        // sender.value = 0
+        
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = NSLocale(localeIdentifier: "fr_FR") as Locale
+        dateFormatter.dateFormat = "MM/yyyy"
+        
+        let calendar = Calendar.current
+        let dateDebutDeMois = startOfMonth()
+        let dateDebutMoisPrécédent = calendar.date(byAdding: .month, value: moisEncours, to: dateDebutDeMois)!
+        
+        titreViewController.title = dateFormatter.string(from: dateDebutMoisPrécédent)
+        
+        
         
         loadData(moisEncours: moisEncours)
         maTableView.reloadData()
@@ -95,8 +118,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
         registerSettings()
         NotificationCenter.default.addObserver(self, selector: #selector (ViewController.updateDisplayFromDefaults), name: UserDefaults.didChangeNotification, object: nil)
-        
-        // recuperationDesDonnees(moisEncours: 0)
     }
     
     func miseAjourTotal(taches: [Tache]) {
@@ -182,71 +203,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             }
         }
     }
-
-    // MARK - Gestion Setup
-    
-    ///delete all the data in core data
-    func cleanCoreData() {
-        let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-        
-        
-        let fetchRequest:NSFetchRequest<Tache> = Tache.fetchRequest()
-        
-        let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest as! NSFetchRequest<NSFetchRequestResult>)
-        
-        do {
-            print("deleting all contents")
-            try context.execute(deleteRequest)
-        }catch {
-            print(error.localizedDescription)
-        }
-        
-    }
-    
-//    func recuperationDesDonnees(moisEncours: Int) {
-//        // Core Data Récupération des données
-//        let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-//
-//        // On fait la requette
-//        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Tache")
-//
-//
-//        let calendar = Calendar.current
-//
-//        let dateDebutDeMois = startOfMonth()
-//        let dateFinDeMois = endOfMonth()
-//
-//        let dateDebutMoisPrécédent = calendar.date(byAdding: .month, value: moisEncours, to: dateDebutDeMois)!
-//        let dateDefinMoisPrécédent = calendar.date(byAdding: .month, value: moisEncours, to: dateFinDeMois)!
-//        print("\(dateDebutMoisPrécédent)")
-//        print("\(dateDefinMoisPrécédent)")
-//
-//        let dateFormatter = DateFormatter()
-//        dateFormatter.locale = NSLocale(localeIdentifier: "fr_FR") as Locale
-//        dateFormatter.dateFormat = "MM/yyyy"
-//        titreViewController.title = dateFormatter.string(from: dateDebutMoisPrécédent)
-//
-//        request.predicate = NSPredicate(format: "quand >= %@ && quand <= %@", dateDebutMoisPrécédent as NSDate, dateDefinMoisPrécédent as NSDate)
-//
-//        // On trie par date
-//        let sort = NSSortDescriptor(key: "quand", ascending: true)
-//        request.sortDescriptors = [sort]
-//
-//        do {
-//            taches = try context.fetch(request) as! [Tache]
-//            if taches.count > 0 {
-//                for index in 0 ... taches.count-1 {
-//                    print("Lecture des données: \(taches[index].quand!) \(taches[index].qui!) \(taches[index].quoi!) \(taches[index].prix)")
-//                }
-//            }
-//        } catch {
-//            print("Fetching Failed")
-//        }
-//
-//        maTableView.reloadData()
-//
-//        miseAjourTotal(taches: taches)
-//    }
     
     func registerSettingsBundle(){
         let appDefaults = [String:AnyObject]()
@@ -274,8 +230,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     func defaultsChanged(){
         updateDisplayFromDefaults()
     }
-    
-   
+
 }
 
 
