@@ -12,9 +12,7 @@ import CoreData
 
 class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
-    var taches : [Tache] = []
-    
-    
+    var taches : [Tache]?
     
     @IBOutlet weak var titreViewController: UINavigationItem!
     @IBOutlet weak var nbToiLabel: UILabel!
@@ -32,32 +30,35 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     @IBAction func ToutAfficherButton(_ sender: Any) {
         
-        // Core Data Récupération des données
-        let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
         
-        // On fait la requette
-        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Tache")
- 
-        titreViewController.title = "Tout"
         
-        // On trie par date
-        let sort = NSSortDescriptor(key: "quand", ascending: true)
-        request.sortDescriptors = [sort]
         
-        do {
-            taches = try context.fetch(request) as! [Tache]
-            if taches.count > 0 {
-                for index in 0 ... taches.count-1 {
-                    print("Lecture des données: \(taches[index].quand!) \(taches[index].qui!) \(taches[index].quoi!) \(taches[index].prix)")
-                }
-            }
-        } catch {
-            print("Fetching Failed")
-        }
-        
+//        // Core Data Récupération des données
+//        let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+//
+//        // On fait la requette
+//        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Tache")
+//
+//        titreViewController.title = "Tout"
+//
+//        // On trie par date
+//        let sort = NSSortDescriptor(key: "quand", ascending: true)
+//        request.sortDescriptors = [sort]
+//
+//        do {
+//            taches = try context.fetch(request) as! [Tache]
+//            if taches.count > 0 {
+//                for index in 0 ... taches.count-1 {
+//                    print("Lecture des données: \(taches[index].quand!) \(taches[index].qui!) \(taches[index].quoi!) \(taches[index].prix)")
+//                }
+//            }
+//        } catch {
+//            print("Fetching Failed")
+//        }
+//
         maTableView.reloadData()
         
-        miseAjourTotal(taches: taches)
+        // miseAjourTotal(taches: taches)
         
     }
     
@@ -76,32 +77,32 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     
     @IBAction func trashButton(_ sender: UIBarButtonItem) {
-        cleanCoreData()
-        let alertController:UIAlertController = UIAlertController(title: "Supression des données !", message: "Voulez-vous vraiment supprimer toutes les données ?", preferredStyle: .alert)
-        
-        let cancelAction = UIAlertAction(title: "Non, annuler", style: .cancel) { action -> Void in
-            // don't do anything
-        }
-        
-        let nextAction = UIAlertAction(title: "Oui", style: .default) { action -> Void in
-            
-            let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-            
-            do {
-                self.taches = try context.fetch(Tache.fetchRequest())
-            } catch {
-                print("Fetching Failed")
-            }
-            
-            self.maTableView.reloadData()
-            
-            self.miseAjourTotal(taches: self.taches)
-        }
-        
-        alertController.addAction(cancelAction)
-        alertController.addAction(nextAction)
-        
-        self.present(alertController, animated: true, completion: nil)
+//        cleanCoreData()
+//        let alertController:UIAlertController = UIAlertController(title: "Supression des données !", message: "Voulez-vous vraiment supprimer toutes les données ?", preferredStyle: .alert)
+//        
+//        let cancelAction = UIAlertAction(title: "Non, annuler", style: .cancel) { action -> Void in
+//            // don't do anything
+//        }
+//        
+//        let nextAction = UIAlertAction(title: "Oui", style: .default) { action -> Void in
+//            
+//            let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+//            
+//            do {
+//                self.taches = try context.fetch(Tache.fetchRequest())
+//            } catch {
+//                print("Fetching Failed")
+//            }
+//            
+//            self.maTableView.reloadData()
+//            
+//            self.miseAjourTotal(taches: self.taches)
+//        }
+//        
+//        alertController.addAction(cancelAction)
+//        alertController.addAction(nextAction)
+//        
+//        self.present(alertController, animated: true, completion: nil)
     }
     
     override func viewDidAppear(_ animated: Bool) {

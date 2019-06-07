@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		535D481122AAA04000A282D3 /* CoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 535D481022AAA04000A282D3 /* CoreData.swift */; };
 		537DBC18229D3AF100F874A7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 537DBC17229D3AF100F874A7 /* AppDelegate.swift */; };
 		537DBC1D229D3AF100F874A7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 537DBC1B229D3AF100F874A7 /* Main.storyboard */; };
 		537DBC20229D3AF100F874A7 /* Toi_ou_Moi.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 537DBC1E229D3AF100F874A7 /* Toi_ou_Moi.xcdatamodeld */; };
@@ -19,6 +20,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		535D481022AAA04000A282D3 /* CoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreData.swift; sourceTree = "<group>"; };
 		537DBC14229D3AF100F874A7 /* Toi ou Moi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Toi ou Moi.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		537DBC17229D3AF100F874A7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		537DBC1C229D3AF100F874A7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -63,6 +65,7 @@
 			isa = PBXGroup;
 			children = (
 				537DBC2E229D7E2D00F874A7 /* ViewController.swift */,
+				535D481022AAA04000A282D3 /* CoreData.swift */,
 				5383B64322AA9ED100AAE2E2 /* CalculDates.swift */,
 				537DBC30229D7E7100F874A7 /* AjoutViewController.swift */,
 				537DBC32229D7EB500F874A7 /* TableViewCell.swift */,
@@ -151,6 +154,7 @@
 				5383B64422AA9ED100AAE2E2 /* CalculDates.swift in Sources */,
 				537DBC2F229D7E2D00F874A7 /* ViewController.swift in Sources */,
 				537DBC20229D3AF100F874A7 /* Toi_ou_Moi.xcdatamodeld in Sources */,
+				535D481122AAA04000A282D3 /* CoreData.swift in Sources */,
 				537DBC31229D7E7100F874A7 /* AjoutViewController.swift in Sources */,
 				537DBC18229D3AF100F874A7 /* AppDelegate.swift in Sources */,
 			);
