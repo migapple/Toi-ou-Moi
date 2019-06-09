@@ -23,12 +23,31 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     @IBOutlet weak var maTableView: UITableView!
     
+    @IBOutlet weak var TotalStackView: UIStackView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let backgroundView = UIView()
+        backgroundView.backgroundColor = UIColor.gray
+        
+        backgroundView.translatesAutoresizingMaskIntoConstraints = false
+        
+        // put background view as the most background subviews of stack view
+        TotalStackView.insertSubview(backgroundView, at: 0)
+        
+        // pin the background view edge to the stack view edge
+        NSLayoutConstraint.activate([
+            backgroundView.leadingAnchor.constraint(equalTo: TotalStackView.leadingAnchor),
+            backgroundView.trailingAnchor.constraint(equalTo: TotalStackView.trailingAnchor),
+            backgroundView.topAnchor.constraint(equalTo: TotalStackView.topAnchor),
+            backgroundView.bottomAnchor.constraint(equalTo: TotalStackView.bottomAnchor)
+            ])
+    
+        
         // On charge le mois en cours
         loadData(moisEncours: 0)
-        
+
         let dateFormatter = DateFormatter()
         dateFormatter.locale = NSLocale(localeIdentifier: "fr_FR") as Locale
         dateFormatter.dateFormat = "MM/yyyy"
@@ -45,6 +64,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        
+        
         
         // Récupération des settings
         func registerSettings() {
@@ -193,6 +214,11 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         let cell:TableViewCell! = tableView.dequeueReusableCell(withIdentifier: "cell") as? TableViewCell
         if let tache = taches?[indexPath.row] {
             cell.affiche(tache: tache)
+            if tache.qui == "Toi" {
+                cell.backgroundColor = UIColor.yellow
+            } else {
+                cell.backgroundColor = UIColor.white
+            }
         }
         return cell
     }
