@@ -13,6 +13,7 @@ import CoreData
 class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     var taches : [Tache]?
+    var afficherTout = false
     
     @IBOutlet weak var titreViewController: UINavigationItem!
     @IBOutlet weak var nbToiLabel: UILabel!
@@ -56,7 +57,19 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     @IBAction func ToutAfficherButton(_ sender: Any) {
         
         // On affiche toutes les données
-        loadData(moisEncours: 99)
+        if afficherTout {
+            loadData(moisEncours: 99)
+            afficherTout = false
+            titreViewController.title = "Tout"
+        } else {
+            loadData(moisEncours: 0)
+            afficherTout = true
+            let dateFormatter = DateFormatter()
+            dateFormatter.locale = NSLocale(localeIdentifier: "fr_FR") as Locale
+            dateFormatter.dateFormat = "MM/yyyy"
+            titreViewController.title = dateFormatter.string(from: startOfMonth())
+        }
+        
         maTableView.reloadData()
         
         // miseAjourTotal(taches: taches)
