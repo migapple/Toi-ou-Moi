@@ -39,6 +39,20 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         titreViewController.title = dateFormatter.string(from: dateDebutMoisPrécédent)
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        // Récupération des settings
+        
+        func registerSettings() {
+            let appDefaults = [String:AnyObject]()
+            UserDefaults.standard.register(defaults: appDefaults)
+        }
+        
+        registerSettings()
+        NotificationCenter.default.addObserver(self, selector: #selector (ViewController.updateDisplayFromDefaults), name: UserDefaults.didChangeNotification, object: nil)
+    }
+    
     @IBAction func ToutAfficherButton(_ sender: Any) {
         
         // On affiche toutes les données
@@ -74,9 +88,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         maTableView.reloadData()
     }
     
-    
-    
-    
     @IBAction func trashButton(_ sender: UIBarButtonItem) {
         clearData()
         let alertController:UIAlertController = UIAlertController(title: "Supression des données !", message: "Voulez-vous vraiment supprimer toutes les données ?", preferredStyle: .alert)
@@ -106,19 +117,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         self.present(alertController, animated: true, completion: nil)
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        // Récupération des settings
-        
-        func registerSettings() {
-            let appDefaults = [String:AnyObject]()
-            UserDefaults.standard.register(defaults: appDefaults)
-        }
-        
-        registerSettings()
-        NotificationCenter.default.addObserver(self, selector: #selector (ViewController.updateDisplayFromDefaults), name: UserDefaults.didChangeNotification, object: nil)
-    }
+    
     
     func miseAjourTotal(taches: [Tache]) {
         
