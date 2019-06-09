@@ -38,13 +38,15 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         let dateDebutMoisPrécédent = calendar.date(byAdding: .month, value: 0, to: dateDebutDeMois)!
         
         titreViewController.title = dateFormatter.string(from: dateDebutMoisPrécédent)
+        
+        miseAjourTotal(taches: taches!)
+        maTableView.reloadData()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
         // Récupération des settings
-        
         func registerSettings() {
             let appDefaults = [String:AnyObject]()
             UserDefaults.standard.register(defaults: appDefaults)
@@ -52,6 +54,9 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
         registerSettings()
         NotificationCenter.default.addObserver(self, selector: #selector (ViewController.updateDisplayFromDefaults), name: UserDefaults.didChangeNotification, object: nil)
+        loadData(moisEncours: 0)
+        miseAjourTotal(taches: taches!)
+        maTableView.reloadData()
     }
     
     @IBAction func ToutAfficherButton(_ sender: Any) {
@@ -70,9 +75,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             titreViewController.title = dateFormatter.string(from: startOfMonth())
         }
         
+        miseAjourTotal(taches: taches!)
         maTableView.reloadData()
-        
-        // miseAjourTotal(taches: taches)
     }
     
     
@@ -94,8 +98,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         let dateDebutMoisPrécédent = calendar.date(byAdding: .month, value: moisEncours, to: dateDebutDeMois)!
         
         titreViewController.title = dateFormatter.string(from: dateDebutMoisPrécédent)
-        
-        
         
         loadData(moisEncours: moisEncours)
         maTableView.reloadData()
@@ -120,8 +122,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             }
 
             self.maTableView.reloadData()
-
-            // self.miseAjourTotal(taches: self.taches)
+           self.miseAjourTotal(taches: self.taches!)
         }
 
         alertController.addAction(cancelAction)
@@ -133,7 +134,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     
     func miseAjourTotal(taches: [Tache]) {
-        
         var nbToi:Int = 0
         var nbMoi:Int = 0
         var totalToi:Double = 0
