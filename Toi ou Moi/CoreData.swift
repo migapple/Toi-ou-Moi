@@ -57,7 +57,7 @@ extension ViewController {
         
     }
     
-    func loadData(moisEncours: Int) {
+    func loadData(moisEncours: Int, choix: String) {
         
         let calendar = Calendar.current
         
@@ -74,7 +74,9 @@ extension ViewController {
         
         // On veut tout afficher
         if moisEncours != 99 {
-            request.predicate = NSPredicate(format: "quand >= %@ && quand <= %@", dateDebutMoisPrécédent as NSDate, dateDefinMoisPrécédent as NSDate)
+            request.predicate = NSPredicate(format: "quand >= %@ && quand <= %@ && quoi == %@", dateDebutMoisPrécédent as NSDate, dateDefinMoisPrécédent as NSDate, choix)
+        } else {
+            request.predicate = NSPredicate(format: "quoi == %@", choix)
         }
         
         // On trie par date

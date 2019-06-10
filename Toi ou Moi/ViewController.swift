@@ -14,12 +14,14 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     var taches : [Tache]?
     var afficherTout = false
+    var quoi = "Restau"
     
     @IBOutlet weak var titreViewController: UINavigationItem!
     @IBOutlet weak var nbToiLabel: UILabel!
     @IBOutlet weak var totToiLabel: UILabel!
     @IBOutlet weak var nbMoiLabel: UILabel!
     @IBOutlet weak var totMoiLabel: UILabel!
+    @IBOutlet weak var quoiSegmentedControl: UISegmentedControl!
     
     @IBOutlet weak var maTableView: UITableView!
     
@@ -27,6 +29,15 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // Récupération des settings
+        func registerSettings() {
+            let appDefaults = [String:AnyObject]()
+            UserDefaults.standard.register(defaults: appDefaults)
+        }
+        
+        registerSettings()
+        NotificationCenter.default.addObserver(self, selector: #selector (ViewController.updateDisplayFromDefaults), name: UserDefaults.didChangeNotification, object: nil)
         
         let backgroundView = UIView()
         backgroundView.backgroundColor = UIColor.gray
@@ -46,7 +57,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
         
         // On charge le mois en cours
-        loadData(moisEncours: 0)
+        loadData(moisEncours: 0, choix: quoi)
 
         let dateFormatter = DateFormatter()
         dateFormatter.locale = NSLocale(localeIdentifier: "fr_FR") as Locale
@@ -64,31 +75,47 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
-        
-        
-        // Récupération des settings
-        func registerSettings() {
-            let appDefaults = [String:AnyObject]()
-            UserDefaults.standard.register(defaults: appDefaults)
-        }
-        
-        registerSettings()
-        NotificationCenter.default.addObserver(self, selector: #selector (ViewController.updateDisplayFromDefaults), name: UserDefaults.didChangeNotification, object: nil)
-        loadData(moisEncours: 0)
+        loadData(moisEncours: 0, choix: quoi)
         miseAjourTotal(taches: taches!)
         maTableView.reloadData()
     }
+    
+    
+    @IBAction func quoiSegmentedControlAction(_ sender: Any) {
+        switch quoiSegmentedControl.selectedSegmentIndex {
+        case 0:
+            if let choix = quoiSegmentedControl.titleForSegment(at: 0) {
+                quoi = choix
+                loadData(moisEncours: 0, choix: quoi)
+                maTableView.reloadData()
+            }
+        case 1:
+            if let choix = quoiSegmentedControl.titleForSegment(at: 1) {
+                quoi = choix
+                loadData(moisEncours: 0, choix: quoi)
+                maTableView.reloadData()
+            }
+        case 2:
+            if let choix = quoiSegmentedControl.titleForSegment(at: 2) {
+                 quoi = choix
+                loadData(moisEncours: 0, choix: quoi)
+                maTableView.reloadData()
+            }
+        default:
+            print("Erreur")
+        }
+    }
+    
     
     @IBAction func ToutAfficherButton(_ sender: Any) {
         
         // On affiche toutes les données
         if afficherTout {
-            loadData(moisEncours: 99)
+            loadData(moisEncours: 99, choix: quoi)
             afficherTout = false
             titreViewController.title = "Tout"
         } else {
-            loadData(moisEncours: 0)
+            loadData(moisEncours: 0, choix: quoi)
             afficherTout = true
             let dateFormatter = DateFormatter()
             dateFormatter.locale = NSLocale(localeIdentifier: "fr_FR") as Locale
@@ -120,7 +147,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
         titreViewController.title = dateFormatter.string(from: dateDebutMoisPrécédent)
         
-        loadData(moisEncours: moisEncours)
+        loadData(moisEncours: moisEncours, choix: quoi)
         maTableView.reloadData()
     }
     
@@ -215,9 +242,10 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         if let tache = taches?[indexPath.row] {
             cell.affiche(tache: tache)
             if tache.qui == "Toi" {
-                cell.backgroundColor = UIColor.yellow
+                // UIColor(cgColor: color Litteral
+                cell.backgroundColor = UIColor(cgColor: #colorLiteral(red: 0.4513868093, green: 0.9930960536, blue: 1, alpha: 1))
             } else {
-                cell.backgroundColor = UIColor.white
+                cell.backgroundColor = UIColor(cgColor: #colorLiteral(red: 0.4620226622, green: 0.8382837176, blue: 1, alpha: 1))
             }
         }
         return cell

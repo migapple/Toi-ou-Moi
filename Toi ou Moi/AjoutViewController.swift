@@ -8,7 +8,7 @@
 
 import UIKit
 import CoreData
-var activite = ["Restau", "Ciné","Courses","","","","","","",""]
+var activite = ["Restau", "Courses","Essence","","","","","","",""]
 
 class AjoutViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
     
@@ -63,7 +63,7 @@ class AjoutViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
         numberFormatter.locale = Locale(identifier: "fr_FR")
         let prixDouble = numberFormatter.number(from: prixTextField.text!) as! Double
         sauvegarde(objet: nouvelleActivite, nom: qui, date: maDate, quoi: quoiLabelField.text!, prix: prixDouble)
-        self.dismiss(animated: true, completion: nil)
+        // self.dismiss(animated: true, completion: nil)
         
     }
     

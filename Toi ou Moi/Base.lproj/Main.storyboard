@@ -23,7 +23,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="TAU-0C-KVJ">
-                                <rect key="frame" x="0.0" y="119.66666666666669" width="375" height="579.33333333333326"/>
+                                <rect key="frame" x="0.0" y="119.66666666666669" width="375" height="569.33333333333326"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" id="UfH-wU-zt9" customClass="TableViewCell" customModule="Toi_ou_Moi" customModuleProvider="target">
@@ -87,51 +87,54 @@
                                 <segments>
                                     <segment title="Restau"/>
                                     <segment title="Courses"/>
-                                    <segment title="Courses"/>
+                                    <segment title="Essence"/>
                                 </segments>
+                                <connections>
+                                    <action selector="quoiSegmentedControlAction:" destination="wnd-fY-IpK" eventType="valueChanged" id="0lY-yB-K0Z"/>
+                                </connections>
                             </segmentedControl>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="fYq-bV-hjz">
-                                <rect key="frame" x="0.0" y="699" width="375" height="30"/>
+                                <rect key="frame" x="0.0" y="689" width="375" height="40"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Toi:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HSH-pa-SBc">
-                                        <rect key="frame" x="0.0" y="0.0" width="36.666666666666664" height="30"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="36.666666666666664" height="40"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="toi" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xYO-IH-uYe">
-                                        <rect key="frame" x="51.666666666666664" y="0.0" width="26.333333333333336" height="30"/>
+                                        <rect key="frame" x="51.666666666666664" y="0.0" width="26.333333333333336" height="40"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="tot toi" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HPI-bV-AJR">
-                                        <rect key="frame" x="93" y="0.0" width="60.666666666666657" height="30"/>
+                                        <rect key="frame" x="93" y="0.0" width="60.666666666666657" height="40"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Moi:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="axJ-s0-9Bo">
-                                        <rect key="frame" x="168.66666666666666" y="0.0" width="44.666666666666657" height="30"/>
+                                        <rect key="frame" x="168.66666666666666" y="0.0" width="44.666666666666657" height="40"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="moi" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iI8-i5-JVl">
-                                        <rect key="frame" x="228.33333333333334" y="0.0" width="38.000000000000028" height="30"/>
+                                        <rect key="frame" x="228.33333333333334" y="0.0" width="38.000000000000028" height="40"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="totmoi" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dah-Q5-rg9">
-                                        <rect key="frame" x="281.33333333333331" y="0.0" width="93.666666666666686" height="30"/>
+                                        <rect key="frame" x="281.33333333333331" y="0.0" width="93.666666666666686" height="40"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="8iB-Si-RyZ"/>
+                                    <constraint firstAttribute="height" constant="40" id="8iB-Si-RyZ"/>
                                 </constraints>
                             </stackView>
                         </subviews>
@@ -189,6 +192,7 @@
                         <outlet property="maTableView" destination="TAU-0C-KVJ" id="Fa3-RE-Hxb"/>
                         <outlet property="nbMoiLabel" destination="iI8-i5-JVl" id="bqG-bf-3Tm"/>
                         <outlet property="nbToiLabel" destination="xYO-IH-uYe" id="Oao-8b-BDq"/>
+                        <outlet property="quoiSegmentedControl" destination="ZkF-sd-E11" id="HND-II-okk"/>
                         <outlet property="titreViewController" destination="xCQ-ey-IcF" id="Ie0-lY-Zcg"/>
                         <outlet property="totMoiLabel" destination="Dah-Q5-rg9" id="DzK-jg-w1j"/>
                         <outlet property="totToiLabel" destination="HPI-bV-AJR" id="svS-zI-yu0"/>
