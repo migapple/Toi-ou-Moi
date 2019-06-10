@@ -9,7 +9,6 @@
 import UIKit
 import CoreData
 
-
 class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     var taches : [Tache]?
@@ -80,7 +79,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         maTableView.reloadData()
     }
     
-    
     @IBAction func quoiSegmentedControlAction(_ sender: Any) {
         switch quoiSegmentedControl.selectedSegmentIndex {
         case 0:
@@ -106,7 +104,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         }
     }
     
-    
     @IBAction func ToutAfficherButton(_ sender: Any) {
         
         // On affiche toutes les données
@@ -127,15 +124,11 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         maTableView.reloadData()
     }
     
-    
     @IBAction func PlusMoinsStepper(_ sender: UIStepper) {
-        
         // On se déplace de mois en mois
         let moisEncours = Int(sender.value)
         sender.maximumValue = 12
         sender.minimumValue = -12
-        // sender.value = 0
-        
         
         let dateFormatter = DateFormatter()
         dateFormatter.locale = NSLocale(localeIdentifier: "fr_FR") as Locale
@@ -146,7 +139,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         let dateDebutMoisPrécédent = calendar.date(byAdding: .month, value: moisEncours, to: dateDebutDeMois)!
         
         titreViewController.title = dateFormatter.string(from: dateDebutMoisPrécédent)
-        
         loadData(moisEncours: moisEncours, choix: quoi)
         maTableView.reloadData()
     }
@@ -178,8 +170,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 
         self.present(alertController, animated: true, completion: nil)
     }
-    
-    
     
     func miseAjourTotal(taches: [Tache]) {
         var nbToi:Int = 0
@@ -223,7 +213,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     // MARK - Gestion de la TableView
     func numberOfSections(in tableView: UITableView) -> Int {
-        
         return 1
     }
     
@@ -258,13 +247,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             if let tache = taches?[indexPath.row] {
                 context.delete(tache)
                 (UIApplication.shared.delegate as! AppDelegate).saveContext()
-                
-                do {
-                    taches = try context.fetch(Tache.fetchRequest())
-                } catch {
-                    print("Fetching Failed")
-                }
-                 // miseAjourTotal(taches: taches)
+                loadData(moisEncours: 0, choix: quoi)
+                miseAjourTotal(taches: taches!)
                 maTableView.reloadData()
             }
         }
@@ -277,13 +261,11 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
     
     @objc func updateDisplayFromDefaults(){
-        
         // Get the defaults
         let defaults = UserDefaults.standard
         
         // Set the controls to the default values.
-        
-        for index in 0...9 {
+         for index in 0...9 {
             let lactivite = "activite\(index)"
             if let activiteSetup = defaults.string(forKey: lactivite) {
                 activite[index]  = activiteSetup
@@ -296,9 +278,4 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     func defaultsChanged(){
         updateDisplayFromDefaults()
     }
-
 }
-
-
-
-

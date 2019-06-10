@@ -9,12 +9,15 @@
 import UIKit
 import CoreData
 var activite = ["Restau", "Courses","Essence","","","","","","",""]
+var rester = false
 
 class AjoutViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
     
-    @IBOutlet weak var dateLabelField: UILabel!
-    @IBOutlet weak var prixTextField: UITextField!
+    @IBOutlet weak var quiLabelField: UILabel!
     @IBOutlet weak var quoiLabelField: UILabel!
+    @IBOutlet weak var dateLabelField: UILabel!
+    @IBOutlet weak var prixLabelField: UILabel!
+    @IBOutlet weak var prixTextField: UITextField!
     @IBOutlet weak var monDatePicker: UIDatePicker!
     @IBOutlet weak var activitePicker: UIPickerView!
     @IBOutlet weak var quiSegmentedControl: UISegmentedControl!
@@ -24,7 +27,16 @@ class AjoutViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
     let dateFormatter = DateFormatter()
     var qui = "Toi"
     let numberFormatter = NumberFormatter()
+
+    @IBOutlet weak var resterSwitch: UISwitch!
     
+    @IBAction func resterSwitchEtat(_ sender: Any) {
+        if resterSwitch.isOn {
+            rester = true
+        } else {
+            rester = false
+        }
+    }
     
     @IBAction func modiferDatePicker(_ sender: Any) {
         dateLabelField.text = dateFormatter.string(for: monDatePicker.date)
@@ -42,9 +54,9 @@ class AjoutViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
         }
     }
     
-    @IBAction func cacheClavier(_ sender: Any) {
-        prixTextField.resignFirstResponder()
-    }
+//    @IBAction func cacheClavier(_ sender: Any) {
+//        prixTextField.resignFirstResponder()
+//    }
     
     
     @IBAction func ajouterAction(_ sender: Any) {
@@ -63,42 +75,42 @@ class AjoutViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
         numberFormatter.locale = Locale(identifier: "fr_FR")
         let prixDouble = numberFormatter.number(from: prixTextField.text!) as! Double
         sauvegarde(objet: nouvelleActivite, nom: qui, date: maDate, quoi: quoiLabelField.text!, prix: prixDouble)
-        // self.dismiss(animated: true, completion: nil)
+        quiLabelField.text = qui
+        prixLabelField.text = prixTextField.text
         
+        // On revient à la vue précédente
+        if rester == false {
+            self.dismiss(animated: true, completion: nil)
+        }
     }
     
     @IBAction func annulerAction(_ sender: Any) {
-        self.dismiss(animated: true, completion: nil)
-        
+        if rester == false {
+            self.dismiss(animated: true, completion: nil)
+        }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         monDatePicker.locale = Locale(identifier: "fr_FR")
         prixTextField.becomeFirstResponder()
-        
         afficheDate()
         quoiLabelField.text = choix
         // on donne la main à la vue sur activitePicker
         //activitePicker.delegate = self
-        
     }
     
     // MARK - Gestion Activites Picker View
-    
-    public func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+     public func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         return activite[row]
-        
-    }
+     }
     
     // returns the number of 'columns' to display.
-    
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
     
     // returns the # of rows in each component..
-    
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         return activite.count
     }
@@ -108,34 +120,26 @@ class AjoutViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
         quoiLabelField.text = choix
     }
     
-    
     func afficheDate() {
         // affiche la date du jour et le met dans le champ dateTextField
         dateFormatter.locale = NSLocale(localeIdentifier: "fr_FR") as Locale
         // dateFormatter.dateFormat = "EEE dd/MM/yy HH:mm"
         dateFormatter.dateFormat = "dd/MM/YYYY HH:mm"
-        
         dateLabelField.text = dateFormatter.string(from: monDatePicker.date)
-        
     }
     
     func sauvegarde(objet:NSManagedObject, nom: String, date: Date, quoi: String, prix: Double) {
-//        let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-        
-    
+        // let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
         // definir la valeur de chaque attribut
         objet.setValue(nom, forKey: "qui")
         objet.setValue(date, forKey: "quand")
         objet.setValue(quoi, forKey: "quoi")
         objet.setValue(prix, forKey: "prix")
-        
         (UIApplication.shared.delegate as! AppDelegate).saveContext()
-        
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
 }

@@ -66,8 +66,8 @@ extension ViewController {
         
         let dateDebutMoisPrécédent = calendar.date(byAdding: .month, value: moisEncours, to: dateDebutDeMois)!
         let dateDefinMoisPrécédent = calendar.date(byAdding: .month, value: moisEncours, to: dateFinDeMois)!
-        print("\(dateDebutMoisPrécédent)")
-        print("\(dateDefinMoisPrécédent)")
+//        print("\(dateDebutMoisPrécédent)")
+//        print("\(dateDefinMoisPrécédent)")
         
         let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Tache")
