@@ -29,14 +29,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Récupération des settings
-        func registerSettings() {
-            let appDefaults = [String:AnyObject]()
-            UserDefaults.standard.register(defaults: appDefaults)
-        }
-        
-        registerSettings()
-        NotificationCenter.default.addObserver(self, selector: #selector (ViewController.updateDisplayFromDefaults), name: UserDefaults.didChangeNotification, object: nil)
+        readSetUp()
         
         let backgroundView = UIView()
         backgroundView.backgroundColor = UIColor.gray
@@ -74,6 +67,9 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        
+        readSetUp()
+        
         loadData(moisEncours: 0, choix: quoi)
         miseAjourTotal(taches: taches!)
         maTableView.reloadData()
@@ -254,28 +250,5 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         }
     }
     
-    func registerSettingsBundle(){
-        let appDefaults = [String:AnyObject]()
-        UserDefaults.standard.register(defaults: appDefaults)
-        //NSUserDefaults.standardUserDefaults().synchronize()
-    }
     
-    @objc func updateDisplayFromDefaults(){
-        // Get the defaults
-        let defaults = UserDefaults.standard
-        
-        // Set the controls to the default values.
-         for index in 0...9 {
-            let lactivite = "activite\(index)"
-            if let activiteSetup = defaults.string(forKey: lactivite) {
-                activite[index]  = activiteSetup
-            } else {
-                activite[index]  = ""
-            }
-        }
-    }
-    
-    func defaultsChanged(){
-        updateDisplayFromDefaults()
-    }
 }

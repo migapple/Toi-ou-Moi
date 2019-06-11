@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>StringsTable</key>
+	<string>Root</string>
+	<key>PreferenceSpecifiers</key>
+	<array>
+		<dict>
+			<key>Type</key>
+			<string>PSTextFieldSpecifier</string>
+			<key>Title</key>
+			<string>Me</string>
+			<key>Key</key>
+			<string>moi_0</string>
+			<key>DefaultValue</key>
+			<string>Moi</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSTextFieldSpecifier</string>
+			<key>Title</key>
+			<string>You</string>
+			<key>Key</key>
+			<string>toi_0</string>
+			<key>DefaultValue</key>
+			<string>Toi</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+			<key>Title</key>
+			<string>Activities</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSTextFieldSpecifier</string>
+			<key>Title</key>
+			<string>Activity 1</string>
+			<key>Key</key>
+			<string>activite_0</string>
+			<key>DefaultValue</key>
+			<string>Restau</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSTextFieldSpecifier</string>
+			<key>Title</key>
+			<string>Activity 2</string>
+			<key>Key</key>
+			<string>activite_1</string>
+			<key>DefaultValue</key>
+			<string>Courses</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSTextFieldSpecifier</string>
+			<key>Title</key>
+			<string>Activity 3</string>
+			<key>Key</key>
+			<string>activite_2</string>
+			<key>DefaultValue</key>
+			<string>Essence</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSTextFieldSpecifier</string>
+			<key>Title</key>
+			<string>Activity 4</string>
+			<key>Key</key>
+			<string>activite_3</string>
+			<key>DefaultValue</key>
+			<string></string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSTextFieldSpecifier</string>
+			<key>Title</key>
+			<string>Activity 5</string>
+			<key>Key</key>
+			<string>activite_4</string>
+			<key>DefaultValue</key>
+			<string></string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSTextFieldSpecifier</string>
+			<key>Title</key>
+			<string>Activity 6</string>
+			<key>Key</key>
+			<string>activite_5</string>
+			<key>DefaultValue</key>
+			<string></string>
+		</dict>
+	</array>
+</dict>
+</plist>
