@@ -8,8 +8,6 @@
 
 import UIKit
 import CoreData
-var activite = ["Restau", "Courses","Essence","","","","","","",""]
-var rester = false
 
 class AjoutViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
     
@@ -22,6 +20,8 @@ class AjoutViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
     @IBOutlet weak var activitePicker: UIPickerView!
     @IBOutlet weak var quiSegmentedControl: UISegmentedControl!
     
+    var activite = ["Restau", "Courses","Essence","","","","","","",""]
+    var rester = false
     var choix = "Restau"
     let datePicker = UIDatePicker()
     let dateFormatter = DateFormatter()
@@ -47,15 +47,17 @@ class AjoutViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
         {
         case 0:
             qui = "Toi";
+            quiLabelField.text = "Toi"
         case 1:
             qui = "Moi";
+            quiLabelField.text = "Moi"
         default:
             break;
         }
     }
     
 //    @IBAction func cacheClavier(_ sender: Any) {
-//        prixTextField.resignFirstResponder()
+//         prixTextField.resignFirstResponder()
 //    }
     
     
@@ -63,7 +65,6 @@ class AjoutViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
         // Core Data
         let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
         
-        // ListePersonnes.append(Personne.init(nom: qui, date: dateTextField.text!, quoi: quoiTextField.text!, prix: (prix as NSString).doubleValue))
         let nouvelleActivite = NSEntityDescription.insertNewObject(forEntityName: "Tache", into: context)
         if prixTextField.text == "" {
             prixTextField.text = "0"

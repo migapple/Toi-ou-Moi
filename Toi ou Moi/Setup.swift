@@ -9,6 +9,9 @@
 import Foundation
 
 func readSetUp() {
+    
+    var activites: [String] = []
+    
     UserDefaults.standard.register(defaults: [String : Any]())
     let userDefaults = UserDefaults.standard
     let moi = userDefaults.string(forKey: "moi_0")
@@ -20,10 +23,10 @@ func readSetUp() {
     for index in 0...5 {
         let lactivite = "activite_\(index)"
         if let activiteSetup = userDefaults.string(forKey: lactivite) {
-            activite[index]  = activiteSetup
-            print(activite[index])
+            activites.append(activiteSetup)
+            print(activites[index])
         } else {
-            activite[index]  = ""
+            activites[index]  = ""
         }
     }
 }
