@@ -25,8 +25,6 @@ func readSetUp() {
         if let activiteSetup = userDefaults.string(forKey: lactivite) {
             activites.append(activiteSetup)
             print(activites[index])
-        } else {
-            activites[index]  = ""
         }
     }
 }

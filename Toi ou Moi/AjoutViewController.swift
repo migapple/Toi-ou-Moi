@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreData
+import AVFoundation
 
 class AjoutViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
     
@@ -19,6 +20,7 @@ class AjoutViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
     @IBOutlet weak var monDatePicker: UIDatePicker!
     @IBOutlet weak var activitePicker: UIPickerView!
     @IBOutlet weak var quiSegmentedControl: UISegmentedControl!
+    @IBOutlet weak var ajouterButton: UIButton!
     
     var activite = ["Restau", "Courses","Essence","","","","","","",""]
     var rester = false
@@ -26,8 +28,25 @@ class AjoutViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
     let datePicker = UIDatePicker()
     let dateFormatter = DateFormatter()
     var qui = "Toi"
+    var lecteur:AVAudioPlayer = AVAudioPlayer()
     let numberFormatter = NumberFormatter()
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        monDatePicker.locale = Locale(identifier: "fr_FR")
+        prixTextField.becomeFirstResponder()
+        afficheDate()
+        quoiLabelField.text = choix
+        // on donne la main à la vue sur activitePicker
+        //activitePicker.delegate = self
+        
+     }
 
+    @IBAction func Fin(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
     @IBOutlet weak var resterSwitch: UISwitch!
     
     @IBAction func resterSwitchEtat(_ sender: Any) {
@@ -56,12 +75,12 @@ class AjoutViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
         }
     }
     
-//    @IBAction func cacheClavier(_ sender: Any) {
-//         prixTextField.resignFirstResponder()
-//    }
-    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        print("fin d'édition")
+    }
     
     @IBAction func ajouterAction(_ sender: Any) {
+        
         // Core Data
         let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
         
@@ -78,7 +97,8 @@ class AjoutViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
         sauvegarde(objet: nouvelleActivite, nom: qui, date: maDate, quoi: quoiLabelField.text!, prix: prixDouble)
         quiLabelField.text = qui
         prixLabelField.text = prixTextField.text
-        
+        prixTextField.text = ""
+
         // On revient à la vue précédente
         if rester == false {
             self.dismiss(animated: true, completion: nil)
@@ -89,16 +109,6 @@ class AjoutViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
         if rester == false {
             self.dismiss(animated: true, completion: nil)
         }
-    }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        monDatePicker.locale = Locale(identifier: "fr_FR")
-        prixTextField.becomeFirstResponder()
-        afficheDate()
-        quoiLabelField.text = choix
-        // on donne la main à la vue sur activitePicker
-        //activitePicker.delegate = self
     }
     
     // MARK - Gestion Activites Picker View
@@ -139,6 +149,12 @@ class AjoutViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
         (UIApplication.shared.delegate as! AppDelegate).saveContext()
     }
 
+    func doubleClic(_ sender: UIButton, event: UIEvent) {
+        let touch: UITouch = event.allTouches!.first!
+        if (touch.tapCount == 2) {
+            
+        }
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

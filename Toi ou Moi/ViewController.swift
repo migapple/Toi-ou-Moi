@@ -21,9 +21,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     @IBOutlet weak var nbMoiLabel: UILabel!
     @IBOutlet weak var totMoiLabel: UILabel!
     @IBOutlet weak var quoiSegmentedControl: UISegmentedControl!
-    
     @IBOutlet weak var maTableView: UITableView!
-    
     @IBOutlet weak var TotalStackView: UIStackView!
     
     override func viewDidLoad() {
@@ -81,18 +79,21 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             if let choix = quoiSegmentedControl.titleForSegment(at: 0) {
                 quoi = choix
                 loadData(moisEncours: 0, choix: quoi)
+                miseAjourTotal(taches: taches!)
                 maTableView.reloadData()
             }
         case 1:
             if let choix = quoiSegmentedControl.titleForSegment(at: 1) {
                 quoi = choix
                 loadData(moisEncours: 0, choix: quoi)
+                miseAjourTotal(taches: taches!)
                 maTableView.reloadData()
             }
         case 2:
             if let choix = quoiSegmentedControl.titleForSegment(at: 2) {
                  quoi = choix
                 loadData(moisEncours: 0, choix: quoi)
+                miseAjourTotal(taches: taches!)
                 maTableView.reloadData()
             }
         default:
@@ -249,6 +250,4 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             }
         }
     }
-    
-    
 }

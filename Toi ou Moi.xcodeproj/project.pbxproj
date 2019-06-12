@@ -18,6 +18,7 @@
 		537DBC31229D7E7100F874A7 /* AjoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 537DBC30229D7E7100F874A7 /* AjoutViewController.swift */; };
 		537DBC33229D7EB500F874A7 /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 537DBC32229D7EB500F874A7 /* TableViewCell.swift */; };
 		5383B64422AA9ED100AAE2E2 /* CalculDates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5383B64322AA9ED100AAE2E2 /* CalculDates.swift */; };
+		53D5F87122B0074A00A272AC /* clic.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 53D5F87022B0074A00A272AC /* clic.mp3 */; };
 		53F23BE022AFC1DA001911BE /* Setup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F23BDF22AFC1DA001911BE /* Setup.swift */; };
 /* End PBXBuildFile section */
 
@@ -35,6 +36,7 @@
 		537DBC30229D7E7100F874A7 /* AjoutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AjoutViewController.swift; sourceTree = "<group>"; };
 		537DBC32229D7EB500F874A7 /* TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
 		5383B64322AA9ED100AAE2E2 /* CalculDates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculDates.swift; sourceTree = "<group>"; };
+		53D5F87022B0074A00A272AC /* clic.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = clic.mp3; sourceTree = "<group>"; };
 		53F23BDF22AFC1DA001911BE /* Setup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Setup.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -79,6 +81,7 @@
 				537DBC21229D3AF200F874A7 /* Assets.xcassets */,
 				537DBC23229D3AF200F874A7 /* LaunchScreen.storyboard */,
 				537DBC26229D3AF200F874A7 /* Info.plist */,
+				53D5F87022B0074A00A272AC /* clic.mp3 */,
 				53600D6A22AE92F300ACEA8E /* Settings.bundle */,
 				537DBC1E229D3AF100F874A7 /* Toi_ou_Moi.xcdatamodeld */,
 			);
@@ -144,6 +147,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				537DBC25229D3AF200F874A7 /* LaunchScreen.storyboard in Resources */,
+				53D5F87122B0074A00A272AC /* clic.mp3 in Resources */,
 				537DBC22229D3AF200F874A7 /* Assets.xcassets in Resources */,
 				537DBC1D229D3AF100F874A7 /* Main.storyboard in Resources */,
 				53600D6B22AE92F300ACEA8E /* Settings.bundle in Resources */,
