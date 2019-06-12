@@ -159,7 +159,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             }
 
             self.maTableView.reloadData()
-           self.miseAjourTotal(taches: self.taches!)
+            self.miseAjourTotal(taches: self.taches!)
         }
 
         alertController.addAction(cancelAction)

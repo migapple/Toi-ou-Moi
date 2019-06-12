@@ -35,6 +35,8 @@ class AjoutViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
         super.viewDidLoad()
         
         monDatePicker.locale = Locale(identifier: "fr_FR")
+        
+        // on donne la main au champ prix
         prixTextField.becomeFirstResponder()
         afficheDate()
         quoiLabelField.text = choix

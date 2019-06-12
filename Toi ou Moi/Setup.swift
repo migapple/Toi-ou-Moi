@@ -9,22 +9,26 @@
 import Foundation
 
 func readSetUp() {
-    
-    var activites: [String] = []
+  
+    struct Activite {
+        var toi: String
+        var moi: String
+        var activites: [String]
+    }
     
     UserDefaults.standard.register(defaults: [String : Any]())
     let userDefaults = UserDefaults.standard
-    let moi = userDefaults.string(forKey: "moi_0")
-    let toi = userDefaults.string(forKey: "toi_0")
-    print(toi)
-    print(moi)
+    
+    var activite: Activite?
+    
+    activite!.moi = userDefaults.string(forKey: "moi_0")!
+    activite!.toi = userDefaults.string(forKey: "toi_0")!
     
     // Set the controls to the default values.
     for index in 0...5 {
         let lactivite = "activite_\(index)"
         if let activiteSetup = userDefaults.string(forKey: lactivite) {
-            activites.append(activiteSetup)
-            print(activites[index])
+            activite!.activites.append(activiteSetup)
         }
     }
 }
