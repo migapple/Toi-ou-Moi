@@ -88,6 +88,9 @@
                                     <segment title="Restau"/>
                                     <segment title="Courses"/>
                                     <segment title="Essence"/>
+                                    <segment title=""/>
+                                    <segment title=""/>
+                                    <segment title=""/>
                                 </segments>
                                 <connections>
                                     <action selector="quoiSegmentedControlAction:" destination="wnd-fY-IpK" eventType="valueChanged" id="0lY-yB-K0Z"/>

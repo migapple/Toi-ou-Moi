@@ -16,11 +16,11 @@ class Activite {
     init(toi:String,moi:String,activites:[String]) {
         self.toi = "toi"
         self.moi = "moi"
-        self.activites = ["Restau", "Courses", "Essence","","",""]
+        self.activites = activites
     }
 }
 
-func readSetUp() {
+func readSetUp() -> Activite {
     
     UserDefaults.standard.register(defaults: [String : Any]())
     let userDefaults = UserDefaults.standard
@@ -37,8 +37,7 @@ func readSetUp() {
             activite.activites!.append(activiteSetup)
         }
     }
-    
-    print(activite.activites!)
+    return activite
 }
 
 func initSetup() {
@@ -46,7 +45,7 @@ func initSetup() {
     UserDefaults.standard.register(defaults: [String : Any]())
     let userDefaults = UserDefaults.standard
     
-    let activite = Activite(toi: "Toi", moi: "Moi", activites: ["Restau","Courses","Essence"])
+    let activite = Activite(toi: "Toi", moi: "Moi", activites: ["Restau","Courses","Essence","","",""])
     
     userDefaults.set(activite.toi, forKey: "toi_0")
     userDefaults.set(activite.moi, forKey: "moi_0")
@@ -55,6 +54,4 @@ func initSetup() {
         let lactivite = "activite_\(index)"
         userDefaults.setValue(activite.activites![index], forKey: lactivite)
     }
-    print(activite.activites!)
-    
 }

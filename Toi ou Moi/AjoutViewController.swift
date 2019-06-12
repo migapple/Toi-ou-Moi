@@ -22,7 +22,6 @@ class AjoutViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
     @IBOutlet weak var quiSegmentedControl: UISegmentedControl!
     @IBOutlet weak var ajouterButton: UIButton!
     
-    var activite = ["Restau", "Courses","Essence","","","","","","",""]
     var rester = false
     var choix = "Restau"
     let datePicker = UIDatePicker()
@@ -30,9 +29,16 @@ class AjoutViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
     var qui = "Toi"
     var lecteur:AVAudioPlayer = AVAudioPlayer()
     let numberFormatter = NumberFormatter()
+    let activite = readSetUp()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let activite = readSetUp()
+        
+        quiSegmentedControl.setTitle(activite.toi, forSegmentAt: 0)
+        quiSegmentedControl.setTitle(activite.moi, forSegmentAt: 1)
+    
         
         monDatePicker.locale = Locale(identifier: "fr_FR")
         
@@ -115,7 +121,7 @@ class AjoutViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
     
     // MARK - Gestion Activites Picker View
      public func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return activite[row]
+        return activite.activites![row]
      }
     
     // returns the number of 'columns' to display.
@@ -125,11 +131,11 @@ class AjoutViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
     
     // returns the # of rows in each component..
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return activite.count
+        return activite.activites!.count
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        choix = activite[row]
+        choix = activite.activites![row]
         quoiLabelField.text = choix
     }
     

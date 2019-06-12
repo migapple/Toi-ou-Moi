@@ -27,8 +27,13 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // initSetup()
+        let activite = readSetUp()
         
-        quoiSegmentedControl.setTitle("toto", forSegmentAt: 0)
+        for index in 0..<activite.activites!.count {
+            quoiSegmentedControl.setTitle(activite.activites![index], forSegmentAt: index)
+        }
+        
         
         let backgroundView = UIView()
         backgroundView.backgroundColor = UIColor.gray
@@ -47,8 +52,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             ])
     
         
-        // On charge le mois en cours
-        loadData(moisEncours: 0, choix: quoi)
+        // On charge le mois en cours avec la première activite
+        loadData(moisEncours: 0, choix: activite.activites![0])
 
         let dateFormatter = DateFormatter()
         dateFormatter.locale = NSLocale(localeIdentifier: "fr_FR") as Locale
@@ -66,11 +71,9 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        let activite = readSetUp()
         
-        // initSetup()
-        readSetUp()
-        
-        loadData(moisEncours: 0, choix: quoi)
+        loadData(moisEncours: 0, choix: activite.activites![0])
         miseAjourTotal(taches: taches!)
         maTableView.reloadData()
     }
@@ -93,8 +96,29 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             }
         case 2:
             if let choix = quoiSegmentedControl.titleForSegment(at: 2) {
-                 quoi = choix
+                quoi = choix
                 loadData(moisEncours: 0, choix: quoi)
+                miseAjourTotal(taches: taches!)
+                maTableView.reloadData()
+            }
+        case 3:
+            if let choix = quoiSegmentedControl.titleForSegment(at: 3) {
+                quoi = choix
+                loadData(moisEncours: 0, choix: quoi)
+                miseAjourTotal(taches: taches!)
+                maTableView.reloadData()
+            }
+        case 4:
+            if let choix = quoiSegmentedControl.titleForSegment(at: 4) {
+                quoi = choix
+                 loadData(moisEncours: 0, choix: quoi)
+                miseAjourTotal(taches: taches!)
+                maTableView.reloadData()
+            }
+        case 5:
+            if let choix = quoiSegmentedControl.titleForSegment(at: 5) {
+                quoi = choix
+                 loadData(moisEncours: 0, choix: quoi)
                 miseAjourTotal(taches: taches!)
                 maTableView.reloadData()
             }
