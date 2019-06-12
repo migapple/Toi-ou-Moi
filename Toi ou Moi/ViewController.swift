@@ -29,6 +29,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
         readSetUp()
         
+        quoiSegmentedControl.setTitle("toto", forSegmentAt: 0)
+        
         let backgroundView = UIView()
         backgroundView.backgroundColor = UIColor.gray
         
