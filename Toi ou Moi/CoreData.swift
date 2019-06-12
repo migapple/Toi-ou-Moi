@@ -84,12 +84,12 @@ extension ViewController {
         request.sortDescriptors = [sort]
         
         do {
-            taches = try context.fetch(request) as! [Tache]
-//            if taches.count > 0 {
-//                for index in 0 ... taches.count-1 {
-//                    print("Lecture des données: \(taches[index].quand!) \(taches[index].qui!) \(taches[index].quoi!) \(taches[index].prix)")
-//                }
-//            }
+            taches = try (context.fetch(request) as? [Tache])
+            if taches!.count > 0 {
+                for index in 0 ... taches!.count-1 {
+                    print("Lecture des données: \(taches![index].quand!) \(taches![index].qui!) \(taches![index].quoi!) \(taches![index].prix)")
+                }
+            }
         } catch {
             print("Fetching Failed")
         }
@@ -100,12 +100,12 @@ extension ViewController {
     func addData() {
         let delegate = UIApplication.shared.delegate as? AppDelegate
         if let context = delegate?.persistentContainer.viewContext {
-            do {
+            //do {
                 NSEntityDescription.insertNewObject(forEntityName: "Tache", into: context)
                 
-            } catch let err {
-                print(err)
-            }
+            //} catch let err {
+            //    print(err)
+            //}
         }
     }
     
@@ -114,7 +114,7 @@ extension ViewController {
         
         let delegate = UIApplication.shared.delegate as? AppDelegate
         if let context = delegate?.persistentContainer.viewContext {
-            do {
+            //do {
                 let tache = NSEntityDescription.insertNewObject(forEntityName: "Tache", into: context) as! Tache
                 tache.qui = "qui"
                 tache.quand = Date()
@@ -123,9 +123,9 @@ extension ViewController {
                 
                 (UIApplication.shared.delegate as! AppDelegate).saveContext()
                 
-            } catch let err {
-                print(err)
-            }
+            //} catch let err {
+            //    print(err)
+            //}
         }
         
     }

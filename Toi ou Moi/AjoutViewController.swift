@@ -55,6 +55,10 @@ class AjoutViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
         self.dismiss(animated: true, completion: nil)
     }
     
+    @IBAction func fermeClavier(_ sender: Any) {
+        prixTextField.resignFirstResponder()
+    }
+    
     @IBOutlet weak var resterSwitch: UISwitch!
     
     @IBAction func resterSwitchEtat(_ sender: Any) {
@@ -81,10 +85,6 @@ class AjoutViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
         default:
             break;
         }
-    }
-    
-    func textFieldDidBeginEditing(_ textField: UITextField) {
-        print("fin d'édition")
     }
     
     @IBAction func ajouterAction(_ sender: Any) {
