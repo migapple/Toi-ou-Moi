@@ -16,9 +16,7 @@ class Activite {
     init(toi:String,moi:String,activites:[String]) {
         self.toi = "toi"
         self.moi = "moi"
-        self.activites![0] = "Restau"
-        self.activites?[1] = "Courses"
-        self.activites![3] = "Essence"
+        self.activites = ["Restau", "Courses", "Essence","","",""]
     }
 }
 
@@ -29,14 +27,18 @@ func readSetUp() {
     
     let activite = Activite(toi: "", moi: "", activites: [])
     
+    activite.moi = userDefaults.string(forKey: "moi_0")!
+    activite.toi = userDefaults.string(forKey: "toi_0")!
+    
     // Set the controls to the default values.
     for index in 0...5 {
         let lactivite = "activite_\(index)"
         if let activiteSetup = userDefaults.string(forKey: lactivite) {
             activite.activites!.append(activiteSetup)
-            //activite!.activites.append(activiteSetup)
         }
     }
+    
+    print(activite.activites!)
 }
 
 func initSetup() {
@@ -44,13 +46,15 @@ func initSetup() {
     UserDefaults.standard.register(defaults: [String : Any]())
     let userDefaults = UserDefaults.standard
     
-    let activites = Activite(toi: "Toi", moi: "Moi", activites: ["Restau","Courses","Essence"])
+    let activite = Activite(toi: "Toi", moi: "Moi", activites: ["Restau","Courses","Essence"])
     
-    userDefaults.set(activites.toi, forKey: "toi_0")
-    userDefaults.set(activites.moi, forKey: "moi_0")
+    userDefaults.set(activite.toi, forKey: "toi_0")
+    userDefaults.set(activite.moi, forKey: "moi_0")
     
     for index in 0...5 {
         let lactivite = "activite_\(index)"
-        userDefaults.setValue(activites.activites![index], forKey: lactivite)
+        userDefaults.setValue(activite.activites![index], forKey: lactivite)
     }
+    print(activite.activites!)
+    
 }

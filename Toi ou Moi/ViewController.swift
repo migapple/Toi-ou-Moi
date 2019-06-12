@@ -27,7 +27,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        readSetUp()
         
         quoiSegmentedControl.setTitle("toto", forSegmentAt: 0)
         
@@ -68,6 +67,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
+        // initSetup()
         readSetUp()
         
         loadData(moisEncours: 0, choix: quoi)
